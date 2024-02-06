@@ -9,7 +9,7 @@
 
 
 ## Chamados do 1746 em grandes eventos
-#### Utilize a tabela de Chamados do 1746 e a tabela de Ocupação Hoteleira em Grandes Eventos no Rio para as perguntas de 6-9.
+#### Utilize a tabela de Chamados do 1746 e a tabela de Ocupação Hoteleira em Grandes Eventos no Rio para as perguntas de 6-10.
 
 6. Quantos chamados com o subtipo “Perturbação do sossego” foram abertos desde 01/01/2022 até 31/12/2023 (incluindo extremidades)?
 7. Selecione os chamados com esse subtipo que foram abertos durante os eventos contidos na tabela de eventos (Reveillon, Carnaval e Rock in Rio).
