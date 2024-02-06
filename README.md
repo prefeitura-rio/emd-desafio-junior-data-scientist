@@ -22,19 +22,18 @@ Você precisará de acesso ao Google Cloud Platform (GCP) para utilizar o BigQue
 
 - Tutorial para acessar dados no BigQuery, desde a criação da conta no GCP até consultar os dados utilizando SQL e Python: [Como acessar dados no BigQuery](https://docs.dados.rio/tutoriais/como-acessar-dados/)
 
-### Como Participar
-
-1. Crie uma conta gratuita no Google Cloud Platform (GCP), se ainda não tiver uma.
-2. Siga o tutorial para acessar dados no BigQuery usando Python.
-3. Clone este repositório para o seu ambiente local.
-4. Responda às perguntas SQL e Python nos arquivos `analise_sql.sql` e `analise_python.py`, respectivamente.
-5. Utilize o LookerStudio ou qualquer outra ferramenta de visualização de sua preferência para criar visualizações informativas com base nos resultados das análises.
-6. Faça commits incrementais à medida que trabalha no desafio e, finalmente, faça push do seu código para o seu repositório no GitHub.
-7. Envie o link do seu repositório para o email joao.carabetta@gmail.com até a data limite para submissão.
-
 ### Perguntas do Desafio
 
 As perguntas do desafio estão detalhadas no arquivo `perguntas_desafio.md`.
+
+### Etapas
+
+1. Siga o tutorial acima para criar sua conta no GCP e aprender como utilizar o BigQuery para consultar os dados.
+2. Faça um fork desse repositório.
+3. Utilize SQL para resolver todas as questões contidas no arquivo `perguntas_desafio.md` no BigQuery. Salve suas respostas no arquivo `analise_sql.sql`.
+4. Utilize Python e pandas para resolver todas as questões contidas no arquivo `perguntas_desafio.md`. Salve suas respostas no arquivo `analise_python.sql`.
+6. Utilize o LookerStudio ou qualquer outra ferramenta de visualização de sua preferência para criar visualizações informativas com base nos resultados das análises.
+7. Faça commits incrementais à medida que trabalha no desafio e, finalmente, faça push do seu código para o seu repositório no GitHub.
 
 ### Dúvidas
 
