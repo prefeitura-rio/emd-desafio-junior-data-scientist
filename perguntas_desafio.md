@@ -17,4 +17,4 @@
 9. Qual evento teve a maior média diária de chamados abertos desse subtipo?
 10. Qual é a relação entre as médias diárias de chamados abertos durante os eventos específicos (Reveillon, Carnaval e Rock in Rio) e a média diária de chamados abertos considerando todo o período de 01/01/2022 até 31/12/2023?
 
-###### Importante: a tabela de Chamados do 1746 possui mais de 10M de linhas. Evite fazer consultas exploratórias na tabela sem um filtro ou limite de linhas para economizar sua cota no BigQuery!
+##### Importante: a tabela de Chamados do 1746 possui mais de 10M de linhas. Evite fazer consultas exploratórias na tabela sem um filtro ou limite de linhas para economizar sua cota no BigQuery!
