@@ -2,7 +2,7 @@
 
 ## Descrição
 
-Bem-vindo ao desafio técnico para a vaga de Analista de Dados Júnior no Escritório Municipal de Dados do Rio de Janeiro! Este desafio tem o objetivo de avaliar suas habilidades técnicas em manipulação de dados, consulta SQL, análise de dados e visualização de dados utilizando ferramentas como BigQuery, Python e LookerStudio.
+Bem-vindo ao desafio técnico para a vaga de Analista de Dados Júnior no Escritório Municipal de Dados do Rio de Janeiro! Este desafio tem o objetivo de avaliar suas habilidades técnicas em manipulação de dados, consulta SQL, análise de dados e visualização de dados utilizando ferramentas como BigQuery, Python e LookerStudio. A **data limite** do seu último commit no repositório é de **25/02/2024 às 23:59 UTC-3**.
 
 ### Objetivo
 
@@ -26,14 +26,18 @@ Você precisará de acesso ao Google Cloud Platform (GCP) para utilizar o BigQue
 
 As perguntas do desafio estão detalhadas no arquivo `perguntas_desafio.md`.
 
-### Etapas
+## Etapas
 
 1. Siga o tutorial acima para criar sua conta no GCP e aprender como utilizar o BigQuery para consultar os dados.
 2. Faça um fork desse repositório.
 3. Utilize SQL para resolver todas as questões contidas no arquivo `perguntas_desafio.md` no BigQuery. Salve suas respostas no arquivo `analise_sql.sql`.
-4. Utilize Python e pandas para resolver todas as questões contidas no arquivo `perguntas_desafio.md`. Salve suas respostas no arquivo `analise_python.sql`.
-6. Utilize o LookerStudio ou qualquer outra ferramenta de visualização de sua preferência para criar visualizações informativas com base nos resultados das análises.
-7. Faça commits incrementais à medida que trabalha no desafio e, finalmente, faça push do seu código para o seu repositório no GitHub.
+4. Utilize Python e pandas para resolver todas as questões contidas no arquivo `perguntas_desafio.md`. Salve suas respostas no arquivo `analise_python.sql`. Para acessar os dados do BigQuery no python, siga o tutorial acima e utilize a biblioteca `basedosdados` ou, alternativamente, baixe os dados do BigQuery como .csv.
+6. Utilize o LookerStudio, Power BI, StreamLit, Tableau ou qualquer outra ferramenta de visualização de sua preferência para criar visualizações informativas com base nos resultados das análises.
+7. Faça commits incrementais à medida que trabalha no desafio e, finalmente, faça push do seu código para o seu repositório no GitHub. Seu repositório deve conter um README com todas os passos necessários para rodar seu código e ver a visualização de dados que você criou.
+
+### Observação
+
+É esperado que você possa não ter tido contato prévio com algumas das tecnologias solicitadas no desafio, e isso é intencional. Parte da avaliação consiste em verificar se você é capaz de aprender rapidamente e produzir resultados após estudar as tecnologias por algum tempo. Por essa razão, o desafio tem uma duração de 17 dias, permitindo que você tenha tempo para estudar e aprender antes de enviar suas respostas.
 
 ### Dúvidas
 
