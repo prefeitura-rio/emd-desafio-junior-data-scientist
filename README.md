@@ -6,7 +6,11 @@ Bem-vindo ao desafio técnico para a vaga de Analista de Dados Júnior no Escrit
 
 ### Objetivo
 
-O objetivo deste desafio é realizar análises exploratórias em conjuntos de dados públicos disponíveis no BigQuery, responder a perguntas específicas sobre esses dados utilizando SQL e Python, e criar visualizações informativas e visualmente atraentes no LookerStudio.
+O objetivo deste desafio é realizar análises exploratórias em conjuntos de dados públicos disponíveis no BigQuery, responder a perguntas específicas sobre esses dados utilizando SQL e Python, e criar visualizações informativas e visualmente atraentes.
+
+#### Observação
+
+É esperado que você possa não ter tido contato prévio com algumas das tecnologias solicitadas no desafio, e isso é intencional. Parte da avaliação consiste em verificar se você é capaz de aprender rapidamente e produzir resultados após estudar as tecnologias por algum tempo. Por essa razão, o desafio tem uma duração de 17 dias, permitindo que você tenha tempo para estudar e aprender antes de enviar suas respostas.
 
 ### Conjunto de Dados
 
@@ -31,13 +35,9 @@ As perguntas do desafio estão detalhadas no arquivo `perguntas_desafio.md`.
 1. Siga o tutorial acima para criar sua conta no GCP e aprender como utilizar o BigQuery para consultar os dados.
 2. Faça um fork desse repositório.
 3. Utilize SQL para resolver todas as questões contidas no arquivo `perguntas_desafio.md` no BigQuery. Salve suas respostas no arquivo `analise_sql.sql`.
-4. Utilize Python e pandas para resolver todas as questões contidas no arquivo `perguntas_desafio.md`. Salve suas respostas no arquivo `analise_python.sql`. Para acessar os dados do BigQuery no python, siga o tutorial acima e utilize a biblioteca `basedosdados` ou, alternativamente, baixe os dados do BigQuery como .csv.
+4. Utilize Python e pandas para resolver todas as questões contidas no arquivo `perguntas_desafio.md`. Salve suas respostas no arquivo `analise_python.sql`. Para acessar os dados do BigQuery no python, siga o tutorial acima e utilize a biblioteca `basedosdados`.
 6. Utilize o LookerStudio, Power BI, StreamLit, Tableau ou qualquer outra ferramenta de visualização de sua preferência para criar visualizações informativas dos dados das 3 tabelas. Suas visualizações não precisam se limitar apenas aos resultados das análises; é encorajado que você explore os dados e crie visualizações interessantes sobre eles.
 7. Faça commits incrementais à medida que trabalha no desafio e, finalmente, faça push do seu código para o seu repositório no GitHub. Seu repositório deve conter um README com todas os passos necessários para rodar seu código e ver a visualização de dados que você criou.
-
-### Observação
-
-É esperado que você possa não ter tido contato prévio com algumas das tecnologias solicitadas no desafio, e isso é intencional. Parte da avaliação consiste em verificar se você é capaz de aprender rapidamente e produzir resultados após estudar as tecnologias por algum tempo. Por essa razão, o desafio tem uma duração de 17 dias, permitindo que você tenha tempo para estudar e aprender antes de enviar suas respostas.
 
 ### Dúvidas
 
