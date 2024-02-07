@@ -1,8 +1,8 @@
-# Desafio Técnico - Analista de Dados Júnior
+# Desafio Técnico - Cientista de Dados Júnior
 
 ## Descrição
 
-Bem-vindo ao desafio técnico para a vaga de Analista de Dados Júnior no Escritório Municipal de Dados do Rio de Janeiro! Este desafio tem o objetivo de avaliar suas habilidades técnicas em manipulação de dados, consulta SQL, análise de dados e visualização de dados utilizando ferramentas como BigQuery e Python. A **data limite** do seu último commit no repositório é de **25/02/2024 às 23:59 UTC-3**.
+Bem-vindo ao desafio técnico para a vaga de Cientista de Dados Júnior no Escritório Municipal de Dados do Rio de Janeiro! Este desafio tem o objetivo de avaliar suas habilidades técnicas em manipulação de dados, consulta SQL, análise de dados e visualização de dados utilizando ferramentas como BigQuery e Python. A **data limite** do seu último commit no repositório é de **25/02/2024 às 23:59 UTC-3**.
 
 ### Objetivo
 
