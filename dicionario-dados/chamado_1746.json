@@ -1,0 +1,226 @@
+[
+    {
+      "name": "id_chamado",
+      "mode": "",
+      "type": "STRING",
+      "description": "Identificador único do chamado no banco de dados.",
+      "fields": []
+    },
+    {
+      "name": "data_inicio",
+      "mode": "",
+      "type": "DATETIME",
+      "description": "Data de abertura do chamado. Ocorre quando o operador registra o chamado.",
+      "fields": []
+    },
+    {
+      "name": "data_fim",
+      "mode": "",
+      "type": "DATETIME",
+      "description": "Data de fechamento do chamado. O chamado é fechado quando o pedido é atendido ou quando se percebe que o pedido não pode ser atendido.",
+      "fields": []
+    },
+    {
+      "name": "id_bairro",
+      "mode": "",
+      "type": "STRING",
+      "description": "Identificador único, no banco de dados, do bairro onde ocorreu o fato que gerou o chamado.",
+      "fields": []
+    },
+    {
+      "name": "id_territorialidade",
+      "mode": "",
+      "type": "STRING",
+      "description": "Identificador único, no banco de dados, da territorialidade onde ocorreu o fato que gerou o chamado. Territorialidade é uma região da cidade do Rio de Janeiro que tem com responsável um órgão especifico. Exemplo: CDURP, que é responsável pela região do porto do Rio de Janeiro.",
+      "fields": []
+    },
+    {
+      "name": "id_logradouro",
+      "mode": "",
+      "type": "STRING",
+      "description": "Identificador único, no banco de dados, do logradouro onde ocorreu o fato que gerou o chamado.",
+      "fields": []
+    },
+    {
+      "name": "numero_logradouro",
+      "mode": "",
+      "type": "INTEGER",
+      "description": "Número da porta onde ocorreu o fato que gerou o chamado.",
+      "fields": []
+    },
+    {
+      "name": "id_unidade_organizacional",
+      "mode": "",
+      "type": "STRING",
+      "description": "Identificador único, no banco de dados, do órgão que executa o chamado. Por exemplo: identificador da COMLURB quando o chamado é relativo a limpeza urbana.",
+      "fields": []
+    },
+    {
+      "name": "nome_unidade_organizacional",
+      "mode": "",
+      "type": "STRING",
+      "description": "Nome do órgão que executa a demanda. Por exemplo: COMLURB quando a demanda é relativa a limpeza urbana.",
+      "fields": []
+    },
+    {
+      "name": "id_unidade_organizacional_mae",
+      "mode": "",
+      "type": "STRING",
+      "description": "ID da unidade organizacional mãe do orgão que executa a demanda. Por exemplo: \"CVA - Coordenação de Vigilância de Alimentos\" é quem executa a demanda e obede a unidade organizacional mãe \"IVISA-RIO - Instituto Municipal de Vigilância Sanitária, de Zoonoses e de Inspeção Agropecuária\". A coluna se refere ao ID  deste último.",
+      "fields": []
+    },
+    {
+      "name": "unidade_organizacional_ouvidoria",
+      "mode": "",
+      "type": "STRING",
+      "description": null,
+      "fields": []
+    },
+    {
+      "name": "categoria",
+      "mode": "",
+      "type": "STRING",
+      "description": "Categoria do chamado. Exemplo: Serviço, informação, sugestão, elogio, reclamação, crítica.",
+      "fields": []
+    },
+    {
+      "name": "id_tipo",
+      "mode": "",
+      "type": "STRING",
+      "description": "Identificador único, no banco de dados, do tipo do chamado. Ex: Iluminação pública.",
+      "fields": []
+    },
+    {
+      "name": "tipo",
+      "mode": "",
+      "type": "STRING",
+      "description": "Nome do tipo do chamado. Ex: Iluminação pública.",
+      "fields": []
+    },
+    {
+      "name": "id_subtipo",
+      "mode": "",
+      "type": "STRING",
+      "description": "Identificador único, no banco de dados, do subtipo do chamado. Ex: Reparo de lâmpada apagada.",
+      "fields": []
+    },
+    {
+      "name": "subtipo",
+      "mode": "",
+      "type": "STRING",
+      "description": "Nome do subtipo do chamado.  Ex: Reparo de lâmpada apagada.",
+      "fields": []
+    },
+    {
+      "name": "status",
+      "mode": "",
+      "type": "STRING",
+      "description": "Status do chamado. Ex. Fechado com solução, aberto em andamento, pendente etc.",
+      "fields": []
+    },
+    {
+      "name": "longitude",
+      "mode": "",
+      "type": "FLOAT",
+      "description": "Longitude do lugar do evento que motivou o chamado.",
+      "fields": []
+    },
+    {
+      "name": "latitude",
+      "mode": "",
+      "type": "FLOAT",
+      "description": "Latitude do lugar do evento que motivou o chamado.",
+      "fields": []
+    },
+    {
+      "name": "data_alvo_finalizacao",
+      "mode": "",
+      "type": "DATETIME",
+      "description": "Data prevista para o atendimento do chamado. Caso prazo_tipo seja D fica em branco até o diagnóstico ser feito.",
+      "fields": []
+    },
+    {
+      "name": "data_alvo_diagnostico",
+      "mode": "",
+      "type": "DATETIME",
+      "description": "Data prevista para fazer o diagnóstico do serviço.  Caso prazo_tipo seja F esta data fica em branco.",
+      "fields": []
+    },
+    {
+      "name": "data_real_diagnostico",
+      "mode": "",
+      "type": "DATETIME",
+      "description": "Data em que foi feito o diagnóstico do serviço.  Caso prazo_tipo seja F esta data fica em branco.",
+      "fields": []
+    },
+    {
+      "name": "tempo_prazo",
+      "mode": "",
+      "type": "INTEGER",
+      "description": "Prazo para o serviço ser feito. Em dias ou horas após a abertura do chamado. Caso haja diagnóstico o prazo conta após se fazer o diagnóstico.",
+      "fields": []
+    },
+    {
+      "name": "prazo_unidade",
+      "mode": "",
+      "type": "STRING",
+      "description": "Unidade de tempo utilizada no prazo. Dias ou horas. D ou H.",
+      "fields": []
+    },
+    {
+      "name": "prazo_tipo",
+      "mode": "",
+      "type": "STRING",
+      "description": "Diagnóstico ou finalização. D ou F. Indica se a chamada precisa de diagnóstico ou não. Alguns serviços precisam de avaliação para serem feitos, neste caso é feito o diagnóstico. Por exemplo, pode de árvore. Há a necessidade de um engenheiro ambiental verificar a necessidade da poda ou não.",
+      "fields": []
+    },
+    {
+      "name": "dentro_prazo",
+      "mode": "",
+      "type": "STRING",
+      "description": "Indica se a data alvo de finalização do chamado ainda está dentro do prazo estipulado.",
+      "fields": []
+    },
+    {
+      "name": "situacao",
+      "mode": "",
+      "type": "STRING",
+      "description": "Identifica se o chamado foi encerrado",
+      "fields": []
+    },
+    {
+      "name": "tipo_situacao",
+      "mode": "",
+      "type": "STRING",
+      "description": "Indica o status atual do chamado entre as categorias Atendido, Atendido parcialmente, Não atendido, Não constatado e Andamento",
+      "fields": []
+    },
+    {
+      "name": "justificativa_status",
+      "mode": "",
+      "type": "STRING",
+      "description": "Justificativa que os órgãos usam ao definir o status. Exemplo: SEM POSSIBILIDADE DE ATENDIMENTO - justificativa: Fora de área de atuação do municipio",
+      "fields": []
+    },
+    {
+      "name": "reclamacoes",
+      "mode": "",
+      "type": "INTEGER",
+      "description": "Quantidade de reclamações.",
+      "fields": []
+    },
+    {
+      "name": "data_particao",
+      "mode": "",
+      "type": "DATE",
+      "description": null,
+      "fields": []
+    },
+    {
+      "name": "geometry",
+      "mode": "",
+      "type": "GEOGRAPHY",
+      "description": null,
+      "fields": []
+    }
+  ]

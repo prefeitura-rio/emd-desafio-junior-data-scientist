@@ -1,0 +1,86 @@
+[
+    {
+      "name": "id_bairro",
+      "mode": "",
+      "type": "STRING",
+      "description": "Código do bairro dado pela prefeitura do Rio de Janeiro.",
+      "fields": []
+    },
+    {
+      "name": "nome",
+      "mode": "",
+      "type": "STRING",
+      "description": "Nome do bairro",
+      "fields": []
+    },
+    {
+      "name": "id_area_planejamento",
+      "mode": "",
+      "type": "STRING",
+      "description": "Código da área de planejamento onde está localizado a região de planejamento do bairro.\r\nVer atributo nome_regiao_planejamento.",
+      "fields": []
+    },
+    {
+      "name": "id_regiao_planejamento",
+      "mode": "",
+      "type": "STRING",
+      "description": "Código da região de planejamento onde está localizado o região administrativa do bairro. Ver atributo REGIAO_ADM.",
+      "fields": []
+    },
+    {
+      "name": "nome_regiao_planejamento",
+      "mode": "",
+      "type": "STRING",
+      "description": "Nome da região de planejamento. \r\nDeve respeitar o atributo id_regiao_planejamento.",
+      "fields": []
+    },
+    {
+      "name": "id_regiao_administrativa",
+      "mode": "",
+      "type": "STRING",
+      "description": "Código da região administrativa onde está locallizado o bairro.",
+      "fields": []
+    },
+    {
+      "name": "nome_regiao_administrativa",
+      "mode": "",
+      "type": "STRING",
+      "description": "Nome da região administrativa onde está localizado o bairro. \r\nEste atributo deve respeitar o atributo id_regiao_administrativa.",
+      "fields": []
+    },
+    {
+      "name": "subprefeitura",
+      "mode": "",
+      "type": "STRING",
+      "description": "Nome da subprefeitura a que pertence o bairro.",
+      "fields": []
+    },
+    {
+      "name": "area",
+      "mode": "",
+      "type": "FLOAT",
+      "description": "Área (m²) do bairro. \r\nTem o mesmo valor do atributo SHAPE.STArea().",
+      "fields": []
+    },
+    {
+      "name": "perimetro",
+      "mode": "",
+      "type": "FLOAT",
+      "description": "Perímetro (m) do bairro.",
+      "fields": []
+    },
+    {
+      "name": "geometry_wkt",
+      "mode": "",
+      "type": "STRING",
+      "description": null,
+      "fields": []
+    },
+    {
+      "name": "geometry",
+      "mode": "",
+      "type": "GEOGRAPHY",
+      "description": "Geometria do bairro no banco do ArcGIS.",
+      "fields": []
+    }
+  ]

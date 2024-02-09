@@ -1,0 +1,37 @@
+[
+    {
+      "name": "ano",
+      "mode": "",
+      "type": "STRING",
+      "description": null,
+      "fields": []
+    },
+    {
+      "name": "data_inicial",
+      "mode": "",
+      "type": "DATE",
+      "description": null,
+      "fields": []
+    },
+    {
+      "name": "data_final",
+      "mode": "",
+      "type": "DATE",
+      "description": null,
+      "fields": []
+    },
+    {
+      "name": "evento",
+      "mode": "",
+      "type": "STRING",
+      "description": null,
+      "fields": []
+    },
+    {
+      "name": "taxa_ocupacao",
+      "mode": "",
+      "type": "FLOAT",
+      "description": null,
+      "fields": []
+    }
+  ]
