@@ -77,8 +77,7 @@
         subtipo = "Perturbação do sossego" 
         AND data_inicio >= "2022-01-01" 
         AND data_inicio < "2024-01-01"
-        AND data_particao >= "2022-01-01"
-        AND data_particao <= "2023-12-31"
+        AND data_particao BETWEEN "2022-01-01" AND "2023-12-31"
     ```
 7. Selecione os chamados com esse subtipo que foram abertos durante os eventos contidos na tabela de eventos (Reveillon, Carnaval e Rock in Rio).
     ```sql
@@ -88,8 +87,7 @@
         ON DATE(chamado.data_inicio) BETWEEN evento.data_inicial AND evento.data_final
     WHERE 
         chamado.subtipo = "Perturbação do sossego"
-        AND chamado.data_particao >= "2022-01-01"
-        AND chamado.data_particao <= "2023-12-31"
+        AND chamados.data_particao BETWEEN "2022-01-01" AND "2023-12-31"
         AND evento.evento IN ("Reveillon", "Carnaval", "Rock in Rio")
     ```
 8. Quantos chamados desse subtipo foram abertos em cada evento?
@@ -99,8 +97,7 @@
     FROM `datario.administracao_servicos_publicos.chamado_1746` chamados
     JOIN `datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos` eventos ON DATE(chamados.data_inicio) BETWEEN eventos.data_inicial AND eventos.data_final
     WHERE chamados.subtipo = "Perturbação do sossego"
-    AND chamados.data_particao >= "2022-01-01"
-    AND chamados.data_particao <= "2023-12-31"
+    AND chamados.data_particao BETWEEN "2022-01-01" AND "2023-12-31"
     GROUP BY eventos.evento
     ```
 9. Qual evento teve a maior média diária de chamados abertos desse subtipo?
@@ -133,5 +130,39 @@
     LIMIT 1
     ```
 10. Compare as médias diárias de chamados abertos desse subtipo durante os eventos específicos (Reveillon, Carnaval e Rock in Rio) e a média diária de chamados abertos desse subtipo considerando todo o período de 01/01/2022 até 31/12/2023.
+    ```sql
+    -- Primeira parte: Calculando a média diária de chamados por evento usando a tabela temporária criada na pergunta 9
+    SELECT 
+        evento,
+        AVG(total_chamados) AS media_diaria
+    FROM 
+        chamados_data
+    GROUP BY 
+        evento
+
+    -- Segunda parte: Calculando a média diária total de chamados para perturbação do sossego
+    UNION ALL
+
+    SELECT 
+        "Chamados totais" AS evento,
+        AVG(total_chamados) AS media_diaria
+    FROM 
+        (
+        -- Subconsulta para calcular o número total de chamados por dia para perturbação do sossego
+        SELECT 
+            DATE(data_inicio) AS data_chamado,
+            COUNT(*) AS total_chamados
+        FROM 
+            `datario.administracao_servicos_publicos.chamado_1746`
+        WHERE 
+            subtipo = "Perturbação do sossego"
+            AND data_inicio >= "2022-01-01"
+            AND data_inicio < "2024-01-01"
+            AND data_particao BETWEEN "2022-01-01" AND "2023-12-31"
+        GROUP BY 
+            data_chamado
+        ) AS total_chamados_perturbacao
+    
+    ```
 
 ##### Importante: a tabela de Chamados do 1746 possui mais de 10M de linhas. Evite fazer consultas exploratórias na tabela sem um filtro ou limite de linhas para economizar sua cota no BigQuery!
