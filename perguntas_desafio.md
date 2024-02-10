@@ -5,30 +5,33 @@
     ```sql
     SELECT COUNT(*) AS total_chamados
     FROM `datario.administracao_servicos_publicos.chamado_1746`
-    WHERE data_inicio >= "2023-04-01"
-    AND data_inicio < "2023-04-02"
+    WHERE DATE(data_inicio) = "2023-04-01"
     AND data_particao = "2023-04-01"
     ```
+    | total_chamados |
+    | -------------- |
+    | 73            |
 2. Qual o tipo de chamado que teve mais reclamações no dia 01/04/2023?
     ```sql
     SELECT tipo,
         COUNT(*) AS total_chamados
     FROM `datario.administracao_servicos_publicos.chamado_1746`
-    WHERE data_inicio >= "2023-04-01"
-    AND data_inicio < "2023-04-02"
+    WHERE DATE(data_inicio) = "2023-04-01"
     AND data_particao = "2023-04-01"
     GROUP BY tipo
     ORDER BY total_chamados DESC
     LIMIT 1
     ```
+    | tipo | total_chamados |
+    | ---- | -------------- |
+    | Poluição sonora | 24 |
 3. Quais os nomes dos 3 bairros que mais tiveram chamados abertos nesse dia?
     ```sql
     WITH chamados_bairros AS (
         SELECT id_bairro,
             COUNT(*) AS total_chamados
         FROM `datario.administracao_servicos_publicos.chamado_1746`
-        WHERE data_inicio >= "2023-04-01"
-        AND data_inicio < "2023-04-02"
+        WHERE DATE(data_inicio) = "2023-04-01"
         AND data_particao = "2023-04-01"
         GROUP BY id_bairro
         ORDER BY total_chamados DESC
@@ -39,30 +42,37 @@
     WHERE bairro.id_bairro = chamados_bairros.id_bairro
     ORDER BY total_chamados DESC
     ```
+    | nome |
+    | ---- |
+    | Engenho de Dentro |
+    | Leblon |
+    | Campo Grande |
 4. Qual o nome da subprefeitura com mais chamados abertos nesse dia?
     ```sql
     SELECT bairro.subprefeitura,
            COUNT(*) AS total_chamados
     FROM `datario.administracao_servicos_publicos.chamado_1746` AS chamado_1746
     JOIN `datario.dados_mestres.bairro` AS bairro ON chamado_1746.id_bairro = bairro.id_bairro
-    WHERE data_inicio >= "2023-04-01"
-    AND data_inicio < "2023-04-02"
+    WHERE DATE(data_inicio) = "2023-04-01"
     AND data_particao = "2023-04-01"
     GROUP BY bairro.subprefeitura
     ORDER BY total_chamados DESC
     LIMIT 1
     ```
+    | subprefeitura | total_chamados |
+    | ------------- | -------------- |
+    | Zona Norte | 25 |
 5. Existe algum chamado aberto nesse dia que não foi associado a um bairro ou subprefeitura na tabela de bairros? Se sim, por que isso acontece?
     ```sql
-    SELECT categoria,
-        tipo,
-        subtipo
+    SELECT subtipo
     FROM `datario.administracao_servicos_publicos.chamado_1746`
-    WHERE data_inicio >= "2023-04-01"
-    AND data_inicio < "2023-04-02"
-    AND data_particao = "2023-04-01"
-    AND id_bairro IS NULL
+    WHERE DATE(data_inicio) = "2023-04-01"
+        AND data_particao = "2023-04-01"
+        AND id_bairro IS NULL
     ```
+    | subtipo |
+    | ------- |
+    | Verificação de ar condicionado inoperante no ônibus|
 
 ## Chamados do 1746 em grandes eventos
 #### Utilize a tabela de Chamados do 1746 e a tabela de Ocupação Hoteleira em Grandes Eventos no Rio para as perguntas de 6-10. Para todas as perguntas considere o subtipo de chamado "Perturbação do sossego".
@@ -79,17 +89,26 @@
         AND data_inicio < "2024-01-01"
         AND data_particao BETWEEN "2022-01-01" AND "2023-12-31"
     ```
+    | total_chamados |
+    | -------------- |
+    | 42.408         |
 7. Selecione os chamados com esse subtipo que foram abertos durante os eventos contidos na tabela de eventos (Reveillon, Carnaval e Rock in Rio).
     ```sql
-    SELECT chamado.id_chamado, evento.evento
-    FROM `datario.administracao_servicos_publicos.chamado_1746` chamado
+    SELECT chamados.id_chamado, evento.evento
+    FROM `datario.administracao_servicos_publicos.chamado_1746` chamados
     JOIN `datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos` evento
-        ON DATE(chamado.data_inicio) BETWEEN evento.data_inicial AND evento.data_final
+        ON DATE(chamados.data_inicio) BETWEEN evento.data_inicial AND evento.data_final
     WHERE 
-        chamado.subtipo = "Perturbação do sossego"
+        chamados.subtipo = "Perturbação do sossego"
         AND chamados.data_particao BETWEEN "2022-01-01" AND "2023-12-31"
         AND evento.evento IN ("Reveillon", "Carnaval", "Rock in Rio")
     ```
+    | id_chamado | evento      |
+    | ---------- | ----------- |
+    | 18078336   | Reveillon   |
+    | 17661848   | Rock in Rio |
+    | 17682634   | Rock in Rio |
+    | ...   | ... |
 8. Quantos chamados desse subtipo foram abertos em cada evento?
     ```sql
     SELECT eventos.evento,
@@ -100,6 +119,12 @@
     AND chamados.data_particao BETWEEN "2022-01-01" AND "2023-12-31"
     GROUP BY eventos.evento
     ```
+    | evento      | total_chamados |
+    | ----------- | -------------- |
+    | Rock in Rio | 834            |
+    | Carnaval    | 241            |
+    | Reveillon   | 137            |
+
 9. Qual evento teve a maior média diária de chamados abertos desse subtipo?
     ```sql
     WITH chamados_data AS(
@@ -129,6 +154,10 @@
         media_diaria DESC
     LIMIT 1
     ```
+    | evento      | media_diaria |
+    | ----------- | ------------ |
+    | Rock in Rio | 119.142857...|
+
 10. Compare as médias diárias de chamados abertos desse subtipo durante os eventos específicos (Reveillon, Carnaval e Rock in Rio) e a média diária de chamados abertos desse subtipo considerando todo o período de 01/01/2022 até 31/12/2023.
     ```sql
     -- Primeira parte: Calculando a média diária de chamados por evento usando a tabela temporária criada na pergunta 9
@@ -164,5 +193,11 @@
         ) AS total_chamados_perturbacao
     
     ```
-
+    | evento      | media_diaria |
+    | ----------- | ------------ |
+    | Chamados totais | 63.2011922...|
+    | Rock in Rio | 119.142857...|
+    | Reveillon   | 45.6666666... |
+    | Carnaval    | 60.25 |
+    
 ##### Importante: a tabela de Chamados do 1746 possui mais de 10M de linhas. Evite fazer consultas exploratórias na tabela sem um filtro ou limite de linhas para economizar sua cota no BigQuery!
