@@ -93,6 +93,16 @@
         AND evento.evento IN ("Reveillon", "Carnaval", "Rock in Rio")
     ```
 8. Quantos chamados desse subtipo foram abertos em cada evento?
+    ```sql
+    SELECT eventos.evento,
+        COUNT(*) AS total_chamados
+    FROM `datario.administracao_servicos_publicos.chamado_1746` chamados
+    JOIN `datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos` eventos ON DATE(chamados.data_inicio) BETWEEN eventos.data_inicial AND eventos.data_final
+    WHERE chamados.subtipo = "Perturbação do sossego"
+    AND chamados.data_particao >= "2022-01-01"
+    AND chamados.data_particao <= "2023-12-31"
+    GROUP BY eventos.evento
+    ```
 9. Qual evento teve a maior média diária de chamados abertos desse subtipo?
 10. Compare as médias diárias de chamados abertos desse subtipo durante os eventos específicos (Reveillon, Carnaval e Rock in Rio) e a média diária de chamados abertos desse subtipo considerando todo o período de 01/01/2022 até 31/12/2023.
 
