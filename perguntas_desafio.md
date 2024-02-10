@@ -53,7 +53,16 @@
     LIMIT 1
     ```
 5. Existe algum chamado aberto nesse dia que não foi associado a um bairro ou subprefeitura na tabela de bairros? Se sim, por que isso acontece?
-
+    ```sql
+    SELECT categoria,
+        tipo,
+        subtipo
+    FROM `datario.administracao_servicos_publicos.chamado_1746`
+    WHERE data_inicio >= "2023-04-01"
+    AND data_inicio < "2023-04-02"
+    AND data_particao = "2023-04-01"
+    AND id_bairro IS NULL
+    ```
 
 ## Chamados do 1746 em grandes eventos
 #### Utilize a tabela de Chamados do 1746 e a tabela de Ocupação Hoteleira em Grandes Eventos no Rio para as perguntas de 6-10. Para todas as perguntas considere o subtipo de chamado "Perturbação do sossego".
