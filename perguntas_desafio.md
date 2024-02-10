@@ -40,6 +40,18 @@
     ORDER BY total_chamados DESC
     ```
 4. Qual o nome da subprefeitura com mais chamados abertos nesse dia?
+    ```sql
+    SELECT bairro.subprefeitura,
+           COUNT(*) AS total_chamados
+    FROM `datario.administracao_servicos_publicos.chamado_1746` AS chamado_1746
+    JOIN `datario.dados_mestres.bairro` AS bairro ON chamado_1746.id_bairro = bairro.id_bairro
+    WHERE data_inicio >= "2023-04-01"
+    AND data_inicio < "2023-04-02"
+    AND data_particao = "2023-04-01"
+    GROUP BY bairro.subprefeitura
+    ORDER BY total_chamados DESC
+    LIMIT 1
+    ```
 5. Existe algum chamado aberto nesse dia que não foi associado a um bairro ou subprefeitura na tabela de bairros? Se sim, por que isso acontece?
 
 
