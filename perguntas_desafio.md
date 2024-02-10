@@ -68,6 +68,18 @@
 #### Utilize a tabela de Chamados do 1746 e a tabela de Ocupação Hoteleira em Grandes Eventos no Rio para as perguntas de 6-10. Para todas as perguntas considere o subtipo de chamado "Perturbação do sossego".
 
 6. Quantos chamados com o subtipo "Perturbação do sossego" foram abertos desde 01/01/2022 até 31/12/2023 (incluindo extremidades)?
+    ```sql
+    SELECT 
+        COUNT(*) AS total_chamados
+    FROM
+        `datario.administracao_servicos_publicos.chamado_1746` 
+    WHERE 
+        subtipo = "Perturbação do sossego" 
+        AND data_inicio >= "2022-01-01" 
+        AND data_inicio < "2024-01-01"
+        AND data_particao >= "2022-01-01"
+        AND data_particao <= "2023-12-31"
+    ```
 7. Selecione os chamados com esse subtipo que foram abertos durante os eventos contidos na tabela de eventos (Reveillon, Carnaval e Rock in Rio).
 8. Quantos chamados desse subtipo foram abertos em cada evento?
 9. Qual evento teve a maior média diária de chamados abertos desse subtipo?
