@@ -22,6 +22,23 @@
     LIMIT 1
     ```
 3. Quais os nomes dos 3 bairros que mais tiveram chamados abertos nesse dia?
+    ```sql
+    WITH chamados_bairros AS (
+        SELECT id_bairro,
+            COUNT(*) AS total_chamados
+        FROM `datario.administracao_servicos_publicos.chamado_1746`
+        WHERE data_inicio >= "2023-04-01"
+        AND data_inicio < "2023-04-02"
+        AND data_particao = "2023-04-01"
+        GROUP BY id_bairro
+        ORDER BY total_chamados DESC
+        LIMIT 3
+    )
+    SELECT bairro.nome
+    FROM chamados_bairros, `datario.dados_mestres.bairro` AS bairro
+    WHERE bairro.id_bairro = chamados_bairros.id_bairro
+    ORDER BY total_chamados DESC
+    ```
 4. Qual o nome da subprefeitura com mais chamados abertos nesse dia?
 5. Existe algum chamado aberto nesse dia que não foi associado a um bairro ou subprefeitura na tabela de bairros? Se sim, por que isso acontece?
 
