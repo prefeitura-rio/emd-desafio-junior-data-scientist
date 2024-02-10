@@ -104,6 +104,34 @@
     GROUP BY eventos.evento
     ```
 9. Qual evento teve a maior média diária de chamados abertos desse subtipo?
+    ```sql
+    WITH chamados_data AS(
+        SELECT eventos.evento,
+            DATE(chamados.data_inicio) AS data_chamado,
+            COUNT(*) AS total_chamados
+        FROM 
+            `datario.administracao_servicos_publicos.chamado_1746` chamados
+        JOIN 
+            `datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos` eventos 
+        ON 
+            DATE(chamados.data_inicio) BETWEEN eventos.data_inicial AND eventos.data_final
+        WHERE 
+            chamados.subtipo = "Perturbação do sossego"
+            AND chamados.data_particao BETWEEN "2022-01-01" AND "2023-12-31"
+        GROUP BY
+            eventos.evento,
+            data_chamado
+    )
+    SELECT evento,
+        AVG(total_chamados) AS media_diaria
+    FROM
+        chamados_data
+    GROUP BY 
+        evento
+    ORDER BY 
+        media_diaria DESC
+    LIMIT 1
+    ```
 10. Compare as médias diárias de chamados abertos desse subtipo durante os eventos específicos (Reveillon, Carnaval e Rock in Rio) e a média diária de chamados abertos desse subtipo considerando todo o período de 01/01/2022 até 31/12/2023.
 
 ##### Importante: a tabela de Chamados do 1746 possui mais de 10M de linhas. Evite fazer consultas exploratórias na tabela sem um filtro ou limite de linhas para economizar sua cota no BigQuery!
