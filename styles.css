@@ -11,6 +11,14 @@ html {
     padding: 0 5rem;
 }
 
+footer {
+    display: none
+}
+
+[data-testid="stHeader"] {
+    display: none
+}
+
 [data-testid="stAppViewContainer"] > .main {
     background-color: #F7F7F7;
 }
@@ -49,7 +57,7 @@ label[data-baseweb="radio"] {
     font-weight: 400;
     margin: 0;
     position: absolute;
-    top: 75%;
+    top: 85%;
 }
 
 .highlighted {

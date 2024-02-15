@@ -2,8 +2,8 @@ import streamlit as st
 import pandas as pd
 import basedosdados as bd
 from dashboards.chamados_em_um_dia import dashboard as chamados_em_um_dia
-from dashboards.chamados_perturbacao_sossego import (
-    dashboard as chamados_perturbacao_sossego,
+from dashboards.chamados_por_subtipo import (
+    dashboard as chamados_por_subtipo,
 )
 
 
@@ -40,18 +40,8 @@ neighborhoods = load_neighborhoods()
 
 page_names_to_display = {
     "🛎️ Chamados em um dia": lambda: chamados_em_um_dia(calls, neighborhoods),
-    "🔊 Chamados de Perturbação de Sossego": chamados_perturbacao_sossego,
+    "🔊 Chamados por subtipo": lambda: chamados_por_subtipo(calls),
 }
-
-st.markdown(
-    """
-        <style>
-            footer {display: none}
-            [data-testid="stHeader"] {display: none}
-        </style>
-        """,
-    unsafe_allow_html=True,
-)
 
 with open("styles.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
