@@ -1,5 +1,6 @@
 import streamlit as st
 import datetime
+import plotly.express as px
 
 
 def get_event(date, events):
@@ -15,6 +16,57 @@ def get_subtypes(data):
 
 def get_avg_calls(data, event: list = None):
     return data["data_inicio"].dt.date.value_counts().mean()
+
+
+def plot_calls_ts(calls):
+    fig = px.line(
+        calls["data_inicio"].dt.date.value_counts().sort_index(),
+        template="plotly_white",
+    )
+
+    fig.update_traces(line=dict(color="#004A80", width=2))
+
+    fig.update_yaxes(title=None)
+    fig.update_xaxes(title=None)
+
+    fig.update_layout(
+        xaxis=dict(tickfont=dict(size=14)), yaxis=dict(tickfont=dict(size=14))
+    )
+
+    fig.update_layout(
+        showlegend=False,
+        margin=dict(r=0, b=0),
+        xaxis=dict(
+            rangeselector=dict(
+                buttons=list(
+                    [
+                        dict(count=1, label="1 mês", step="month", stepmode="backward"),
+                        dict(
+                            count=3, label="3 meses", step="month", stepmode="backward"
+                        ),
+                        dict(
+                            count=6, label="6 meses", step="month", stepmode="backward"
+                        ),
+                        dict(count=1, label="1 ano", step="year", stepmode="backward"),
+                        dict(label="tudo", step="all"),
+                    ]
+                )
+            ),
+            rangeslider=dict(visible=True),
+            type="date",
+        ),
+        plot_bgcolor="#f9f9f9",
+        paper_bgcolor="#f9f9f9",
+    )
+
+    # alterar tamanho do gráfico
+    fig.update_layout(
+        autosize=True,
+        width=800,
+        height=350,
+    )
+
+    return fig
 
 
 @st.cache_data
@@ -162,10 +214,16 @@ def dashboard(calls, events):
             unsafe_allow_html=True,
         )
 
+    st.markdown(
+        """
+        <h2 class="section_title">Série Temporal de Chamados</h2>
+        """,
+        unsafe_allow_html=True,
+    )
 
-# Subtipo de chamado: Perturbação de sossego
-# Quantidade total de chamados dessa natureza
-# Eventos com mais ocorrencias desse subtipo
-# Quantidade de chamados desse subtipo por evento
-# Evento com maior média diária de chamados desse subtipo
-# Média diária de chamados desse subtipo por evento e a média geral
+    st.plotly_chart(
+        plot_calls_ts(filtered_calls),
+        use_container_width=True,
+        theme="streamlit",
+        config={"displayModeBar": False},
+    )
