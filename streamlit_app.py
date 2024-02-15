@@ -29,6 +29,11 @@ def load_neighborhoods():
     )
 
 
+@st.cache_data
+def load_event_data():
+    return pd.read_parquet("data/rede_hoteleira_ocupacao_eventos.parquet")
+
+
 st.set_page_config(
     page_title="Chamados ao 1746 Dashboard",
     page_icon=":bar_chart:",
@@ -37,10 +42,11 @@ st.set_page_config(
 
 calls = load_call_data()
 neighborhoods = load_neighborhoods()
+events = load_event_data()
 
 page_names_to_display = {
     "🛎️ Chamados em um dia": lambda: chamados_em_um_dia(calls, neighborhoods),
-    "🔊 Chamados por subtipo": lambda: chamados_por_subtipo(calls),
+    "🔊 Chamados por subtipo": lambda: chamados_por_subtipo(calls, events),
 }
 
 with open("styles.css") as f:
