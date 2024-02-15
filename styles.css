@@ -15,7 +15,20 @@ html {
     background-color: #F7F7F7;
 }
 
+label[data-baseweb="radio"] p{
+    font-size: 1.1rem;
+}
 
+label[data-baseweb="radio"]:has(input:checked) p{
+    color: #004A71;
+    font-weight: bold;
+    
+}
+
+label[data-baseweb="radio"] {
+    margin: 0;
+    padding: 0;
+}
 /* Estilos para o dashboard */
 
 .dashboard_header {
