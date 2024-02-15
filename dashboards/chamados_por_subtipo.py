@@ -1,7 +1,7 @@
 import streamlit as st
 import datetime
 import plotly.express as px
-from src.plots import plot_calls_ts
+from src.plots import plot_calls_ts, plot_calls_during_events
 
 
 def get_event(date, events):
@@ -33,42 +33,6 @@ def get_calls_with_event(data, events):
     )
 
     return calls_during_events
-
-
-def plot_calls_during_events(calls_during_events):
-    fig = px.bar(
-        calls_during_events,
-        x="chamados",
-        y="evento",
-        template="plotly_white",
-    )
-
-    fig.update_yaxes(title=None)
-    fig.update_xaxes(title=None)
-
-    fig.update_layout(
-        xaxis=dict(tickfont=dict(size=14)), yaxis=dict(tickfont=dict(size=14))
-    )
-
-    fig.update_layout(
-        showlegend=False,
-        margin=dict(r=0, b=0),
-        plot_bgcolor="#f9f9f9",
-        paper_bgcolor="#f9f9f9",
-        autosize=True,
-    )
-
-    # adicionar número de chamados no topo das barras
-    fig.update_traces(
-        marker_color="#004A80",
-        texttemplate="%{y}",
-        textposition="outside",
-    )
-
-    # aumentar o tamanho da fonte das anotações
-    fig.update_traces(textfont_size=14)
-
-    return fig
 
 
 def dashboard(calls, events):
@@ -107,7 +71,7 @@ def dashboard(calls, events):
         with subtype_col:
             subtypes = get_subtypes(calls)
             subtype = st.selectbox(
-                "Selecione o subtipo de chamado",
+                "Selecione o subtipo",
                 subtypes,
                 index=subtypes.index("Perturbação do sossego"),
                 help="Selecione o subtipo de chamado para análise",
@@ -233,7 +197,9 @@ def dashboard(calls, events):
         )
         calls_during_events.columns = ["evento", "chamados"]
         st.plotly_chart(
-            plot_calls_during_events(calls_during_events),
+            plot_calls_during_events(
+                calls_during_events.sort_values("chamados", ascending=True)
+            ),
             use_container_width=True,
             theme="streamlit",
             config={"displayModeBar": False},

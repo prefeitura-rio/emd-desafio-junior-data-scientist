@@ -95,3 +95,44 @@ def plot_calls_ts(calls):
     )
 
     return fig
+
+
+def plot_calls_during_events(calls_during_events):
+    fig = px.bar(
+        calls_during_events,
+        x="chamados",
+        y="evento",
+        template="plotly_white",
+    )
+
+    fig.update_yaxes(title=None)
+    fig.update_xaxes(title=None)
+
+    fig.update_layout(
+        xaxis=dict(tickfont=dict(size=14)), yaxis=dict(tickfont=dict(size=14))
+    )
+
+    fig.update_layout(
+        showlegend=False,
+        margin=dict(r=0, b=0),
+        plot_bgcolor="#f9f9f9",
+        paper_bgcolor="#f9f9f9",
+        autosize=True,
+        height=380,
+        title=dict(
+            text="Quantidade de chamados por evento",
+            font=dict(size=20, color="#004A80"),
+        ),
+    )
+
+    fig.update_traces(
+        marker_color="#004A80",
+        texttemplate="<b>%{x}</b>",
+        textposition=[
+            "inside" if i == calls_during_events.shape[0] - 1 else "outside"
+            for i in range(calls_during_events.shape[0])
+        ],
+        textfont=dict(size=16),
+    )
+    fig.update_xaxes(showticklabels=False)
+    return fig
