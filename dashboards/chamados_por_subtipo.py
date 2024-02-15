@@ -1,6 +1,7 @@
 import streamlit as st
 import datetime
 import plotly.express as px
+from src.plots import plot_calls_ts
 
 
 def get_event(date, events):
@@ -18,13 +19,29 @@ def get_avg_calls(data, event: list = None):
     return data["data_inicio"].dt.date.value_counts().mean()
 
 
-def plot_calls_ts(calls):
-    fig = px.line(
-        calls["data_inicio"].dt.date.value_counts().sort_index(),
-        template="plotly_white",
+@st.cache_data
+def get_calls_with_event(data, events):
+    calls_during_events = data.loc[
+        data["data_inicio"].dt.date.between(
+            events["data_inicial"].min(), events["data_final"].max()
+        ),
+        ["id_chamado", "tipo", "subtipo", "data_inicio"],
+    ].assign(
+        durante_evento=lambda d: d["data_inicio"].dt.date.apply(
+            lambda x: get_event(x, events)
+        )
     )
 
-    fig.update_traces(line=dict(color="#004A80", width=2))
+    return calls_during_events
+
+
+def plot_calls_during_events(calls_during_events):
+    fig = px.bar(
+        calls_during_events,
+        x="chamados",
+        y="evento",
+        template="plotly_white",
+    )
 
     fig.update_yaxes(title=None)
     fig.update_xaxes(title=None)
@@ -36,53 +53,22 @@ def plot_calls_ts(calls):
     fig.update_layout(
         showlegend=False,
         margin=dict(r=0, b=0),
-        xaxis=dict(
-            rangeselector=dict(
-                buttons=list(
-                    [
-                        dict(count=1, label="1 mês", step="month", stepmode="backward"),
-                        dict(
-                            count=3, label="3 meses", step="month", stepmode="backward"
-                        ),
-                        dict(
-                            count=6, label="6 meses", step="month", stepmode="backward"
-                        ),
-                        dict(count=1, label="1 ano", step="year", stepmode="backward"),
-                        dict(label="tudo", step="all"),
-                    ]
-                )
-            ),
-            rangeslider=dict(visible=True),
-            type="date",
-        ),
         plot_bgcolor="#f9f9f9",
         paper_bgcolor="#f9f9f9",
+        autosize=True,
     )
 
-    # alterar tamanho do gráfico
-    fig.update_layout(
-        autosize=True,
-        width=800,
-        height=350,
+    # adicionar número de chamados no topo das barras
+    fig.update_traces(
+        marker_color="#004A80",
+        texttemplate="%{y}",
+        textposition="outside",
     )
+
+    # aumentar o tamanho da fonte das anotações
+    fig.update_traces(textfont_size=14)
 
     return fig
-
-
-@st.cache_data
-def get_calls_with_event(data, events):
-    calls_during_events = data.loc[
-        data["data_inicio"].dt.date.between(
-            events["data_inicial"].min(), events["data_final"].max()
-        ),
-        ["id_chamado", "tipo", "subtipo", "data_inicio", "subtipo"],
-    ].assign(
-        durante_evento=lambda d: d["data_inicio"].dt.date.apply(
-            lambda x: get_event(x, events)
-        )
-    )
-
-    return calls_during_events
 
 
 def dashboard(calls, events):
@@ -227,3 +213,28 @@ def dashboard(calls, events):
         theme="streamlit",
         config={"displayModeBar": False},
     )
+
+    st.markdown(
+        """
+        <h2 class="section_title">Chamados Durante Eventos</h2>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    bar_chart_col, table_col = st.columns([1, 1])
+
+    calls_during_events = calls_during_events.dropna(subset=["durante_evento"])
+    with table_col:
+        st.dataframe(calls_during_events)
+
+    with bar_chart_col:
+        calls_during_events = (
+            calls_during_events["durante_evento"].value_counts().reset_index()
+        )
+        calls_during_events.columns = ["evento", "chamados"]
+        st.plotly_chart(
+            plot_calls_during_events(calls_during_events),
+            use_container_width=True,
+            theme="streamlit",
+            config={"displayModeBar": False},
+        )

@@ -44,3 +44,54 @@ def make_choropleth(calls, neighborhoods):
         margin={"r": 0, "t": 0, "l": 0, "b": 0},
     )
     return fig
+
+
+def plot_calls_ts(calls):
+    fig = px.line(
+        calls["data_inicio"].dt.date.value_counts().sort_index(),
+        template="plotly_white",
+    )
+
+    fig.update_traces(line=dict(color="#004A80", width=2))
+
+    fig.update_yaxes(title=None)
+    fig.update_xaxes(title=None)
+
+    fig.update_layout(
+        xaxis=dict(tickfont=dict(size=14)), yaxis=dict(tickfont=dict(size=14))
+    )
+
+    fig.update_layout(
+        showlegend=False,
+        margin=dict(r=0, b=0),
+        xaxis=dict(
+            rangeselector=dict(
+                buttons=list(
+                    [
+                        dict(count=1, label="1 mês", step="month", stepmode="backward"),
+                        dict(
+                            count=3, label="3 meses", step="month", stepmode="backward"
+                        ),
+                        dict(
+                            count=6, label="6 meses", step="month", stepmode="backward"
+                        ),
+                        dict(count=1, label="1 ano", step="year", stepmode="backward"),
+                        dict(label="tudo", step="all"),
+                    ]
+                )
+            ),
+            rangeslider=dict(visible=True),
+            type="date",
+        ),
+        plot_bgcolor="#f9f9f9",
+        paper_bgcolor="#f9f9f9",
+    )
+
+    # alterar tamanho do gráfico
+    fig.update_layout(
+        autosize=True,
+        width=800,
+        height=350,
+    )
+
+    return fig
