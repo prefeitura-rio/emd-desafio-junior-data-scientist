@@ -1,0 +1,111 @@
+html {
+    box-sizing: border-box;
+    font-size: 16px;
+}
+  
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+.block-container {
+    padding: 0 5rem;
+}
+
+[data-testid="stAppViewContainer"] > .main {
+    background-color: #F7F7F7;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* Estilos para o dashboard */
+
+.dashboard_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    padding-left: 0;
+    top: 0;
+}
+
+.dashboard_title {
+    position: relative;
+}
+
+.dashboard_subtitle {
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin: 0;
+    position: absolute;
+    top: 75%;
+}
+
+.highlighted {
+    color: #004A71;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+
+.dashboard_logo {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    width: 200px;
+    min-width: 150px;
+}
+
+/* Estilos para o card */
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin: 20px 0;
+    max-height: 200vh;   
+    font-size: 2.8vh; 
+    
+}
+
+@media screen and (max-width: 768px){
+    .card {
+        max-width: 100%;
+        font-size: 2vh;
+    }
+
+    .dashboard_subtitle {
+        top: 90%;
+    }
+}
+
+.card h2 {
+    font-size: inherit;
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
+    color: #004A71;
+
+    word-wrap: break-word;
+    white-space: wrap; 
+    width: inherit;
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
+.card p {
+    font-size: 0.8rem;
+    margin: 0;
+    text-align: center;
+}
+
+.section_title {
+    font-size: 1.4rem;
+}
