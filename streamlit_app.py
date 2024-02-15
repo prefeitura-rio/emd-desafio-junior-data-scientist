@@ -18,8 +18,20 @@ def get_calls_by_neighborhood(data, neighborhoods):
 def load_call_data():
     return pd.read_parquet(
         "data/chamado_1746.parquet",
-        columns=["id_chamado", "data_inicio", "tipo", "id_bairro"],
+        columns=[
+            "id_chamado",
+            "data_inicio",
+            "tipo",
+            "subtipo",
+            "id_bairro",
+        ],
     )
+
+
+@st.cache_data(show_spinner=False)
+def split_frame(input_df, rows):
+    df = [input_df.loc[i : i + rows - 1, :] for i in range(0, len(input_df), rows)]
+    return df
 
 
 @st.cache_data
@@ -52,7 +64,7 @@ with open("styles.css") as f:
 st.sidebar.markdown(
     """
     <h1 class="sidebar_title"> Análise de Chamados - <span class="highlighted">Dashboard</span></h1>
-    <p class="sidebar_subtitle">Análise de chamados abertos nos anos de 2022 e 2023 para um dado dia.</p>
+    <p class="sidebar_subtitle">Análise de chamados abertos nos anos de 2022 e 2023</p>
     """,
     unsafe_allow_html=True,
 )
@@ -169,14 +181,16 @@ with neighborhoods_col:
         labels={"x": "Chamados", "y": "Bairro"},
         width=400,
         height=350,
-        color_discrete_map={"chamados": "#004A71"},
     )
+
+    fig.update_traces(marker_color="#004A71")
+
     for i, v in enumerate(top_10.values):
         fig.add_annotation(
             x=v,
             y=top_10.index[i],
             text=str(v),
-            xshift=10,
+            xshift=12,
             showarrow=False,
         )
     fig.update_yaxes(title_text="")
@@ -186,8 +200,31 @@ with neighborhoods_col:
         margin=dict(l=0, r=0, b=0, t=0),
         plot_bgcolor="rgba(0,0,0,0)",
         paper_bgcolor="rgba(0,0,0,0)",
+        showlegend=False,
     )
 
-    fig.update_layout(showlegend=False)
-
     st.plotly_chart(fig, config={"displayModeBar": False}, use_container_width=True)
+
+
+# ------ Chamados não associados a um bairro
+
+st.markdown(
+    """
+    <h2 class="section_title">Chamados sem bairro associado</h2>
+    <p class="section_subtitle">Tipos e subtipos de chamados sem bairro associado</p>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+calls_without_neighborhood = filtered_data[filtered_data["id_bairro"].isna()]
+st.dataframe(
+    calls_without_neighborhood[["id_chamado", "tipo", "subtipo"]]
+    .groupby(["tipo", "subtipo"])
+    .size()
+    .reset_index(name="quantidade")
+    .sort_values("quantidade", ascending=False),
+    use_container_width=True,
+    height=150,
+    hide_index=True,
+)

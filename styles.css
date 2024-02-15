@@ -13,9 +13,6 @@ html {
 
 [data-testid="stAppViewContainer"] > .main {
     background-color: #F7F7F7;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 
