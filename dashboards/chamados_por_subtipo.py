@@ -15,7 +15,9 @@ def get_subtypes(data):
     return data.subtipo.value_counts().index.tolist()
 
 
-def get_avg_calls(data, event: list = None):
+def get_avg_calls(data):
+    if data.empty:
+        return 0
     return data["data_inicio"].dt.date.value_counts().mean()
 
 
@@ -126,11 +128,16 @@ def dashboard(calls, events):
         )
 
     with event_max_avg_col:
+        main_event = calls_during_events["durante_evento"].value_counts()  # .idxmax()
+        if main_event.empty:
+            main_event = "Nenhum evento"
+        else:
+            main_event = main_event.idxmax()
         st.markdown(
             f"""
             <div class="card">
                 <h2 class="card_title
-                ">Rock in Rio</h2>
+                ">{main_event}</h2>
                 <p class="card_value
                 ">Evento com mais chamados</p>
             </div>
@@ -156,7 +163,7 @@ def dashboard(calls, events):
             f"""
             <div class="card">
                 <h2 class="card_title
-                ">{calls_during_events.dropna(subset=["durante_evento"])["data_inicio"].dt.date.value_counts().mean():.2f}</h2>
+                ">{get_avg_calls(calls_during_events.dropna(subset=["durante_evento"])):.2f}</h2>
                 <p class="card_value
                 ">Média diária durante eventos</p>
             </div>
