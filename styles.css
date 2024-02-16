@@ -2,7 +2,7 @@ html {
     box-sizing: border-box;
     font-size: 16px;
 }
-  
+
 *, *::before, *::after {
     box-sizing: inherit;
 }
@@ -103,11 +103,11 @@ h1 {
     padding: 15px 0;
     margin: 20px 0;
     max-height: 200vh;
-    height: 120px;   
-    font-size: 2.8vh; 
+    height: 120px;
+    font-size: 2.8vh;
     width: 100%;
     max-width: 250px;
-    
+
 }
 
 @media screen and (max-width: 768px){
@@ -132,7 +132,7 @@ h1 {
         font-size: 1rem;
         top: 80%;
     }
-    
+
 }
 
 .card h2 {
@@ -143,11 +143,11 @@ h1 {
     color: #004A71;
 
     word-wrap: break-word;
-    white-space: wrap; 
+    white-space: wrap;
     width: inherit;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-height: 75px; 
+    max-height: 75px;
 }
 
 .card p {

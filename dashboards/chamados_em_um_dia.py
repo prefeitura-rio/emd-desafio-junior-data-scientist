@@ -1,6 +1,8 @@
-import streamlit as st
 import datetime
+
 import plotly.express as px
+import streamlit as st
+
 from src.plots import make_choropleth
 
 
@@ -14,7 +16,7 @@ def get_calls_by_neighborhood(data, neighborhoods):
 
 def dashboard(data, neighborhoods):
     st.markdown(
-        f"""
+        """
         <header class="dashboard_header">
             <h1 class="dashboard_title"> Análise de Chamados - <span class="highlighted">
             Dashboard</span>
@@ -38,8 +40,8 @@ def dashboard(data, neighborhoods):
     filtered_data = filter_data(data, dt)
 
     # -----------------# Card Section #-----------------#
-    calls_amount_col, most_common_call_col, subprefecture_col, date_col = st.columns(
-        (1, 1, 1, 1)
+    calls_amount_col, most_common_call_col, subprefecture_col, date_col = (
+        st.columns((1, 1, 1, 1))
     )
 
     with calls_amount_col:
@@ -68,8 +70,12 @@ def dashboard(data, neighborhoods):
         )
 
     with subprefecture_col:
-        calls_by_neighborhood = get_calls_by_neighborhood(filtered_data, neighborhoods)
-        subprefecture = calls_by_neighborhood.subprefeitura.value_counts().idxmax()
+        calls_by_neighborhood = get_calls_by_neighborhood(
+            filtered_data, neighborhoods
+        )
+        subprefecture = (
+            calls_by_neighborhood.subprefeitura.value_counts().idxmax()
+        )
         st.markdown(
             f"""
             <div class="card">
@@ -106,11 +112,14 @@ def dashboard(data, neighborhoods):
 
     with map_col:
         st.plotly_chart(
-            make_choropleth(filtered_data, neighborhoods), use_container_width=True
+            make_choropleth(filtered_data, neighborhoods),
+            use_container_width=True,
         )
 
     with neighborhoods_col:
-        top_10 = calls_by_neighborhood["nome"].value_counts().head(10).sort_values()
+        top_10 = (
+            calls_by_neighborhood["nome"].value_counts().head(10).sort_values()
+        )
         fig = px.bar(
             top_10,
             x=top_10.values,
@@ -141,7 +150,9 @@ def dashboard(data, neighborhoods):
             showlegend=False,
         )
 
-        st.plotly_chart(fig, config={"displayModeBar": False}, use_container_width=True)
+        st.plotly_chart(
+            fig, config={"displayModeBar": False}, use_container_width=True
+        )
 
     # ------ Chamados não associados a um bairro
 
@@ -153,7 +164,9 @@ def dashboard(data, neighborhoods):
         unsafe_allow_html=True,
     )
 
-    calls_without_neighborhood = filtered_data[filtered_data["id_bairro"].isna()]
+    calls_without_neighborhood = filtered_data[
+        filtered_data["id_bairro"].isna()
+    ]
     st.dataframe(
         calls_without_neighborhood[["id_chamado", "tipo", "subtipo"]]
         .groupby(["tipo", "subtipo"])

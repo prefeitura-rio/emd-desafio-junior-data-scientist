@@ -1,0 +1,31 @@
+[tool]
+[tool.poetry]
+name = "emd-analise-chamados-1746"
+version = "0.1.0"
+description = "Análise exploratória dos chamados a central do 1746 da prefeitura do Rio de Janeiro"
+authors = ["jessica <jessicasousa.pc@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "~3.10"
+plotly = "^5.19.0"
+geopandas = "^0.14.3"
+streamlit = "^1.31.1"
+pandas-gbq = "^0.21.0"
+
+[tool.poetry.group]
+[tool.poetry.group.dev]
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.6.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.vulture]
+make_whitelist = true
+min_confidence = 80
+sort_by_size = true
+verbose = true
+paths = ["src/", "dashboards/", "mypages/"]

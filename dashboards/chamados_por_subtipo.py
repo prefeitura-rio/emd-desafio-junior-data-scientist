@@ -1,12 +1,15 @@
-import streamlit as st
 import datetime
-import plotly.express as px
-from src.plots import plot_calls_ts, plot_calls_during_events
+
+import streamlit as st
+
+from src.plots import plot_calls_during_events
+from src.plots import plot_calls_ts
 
 
 def get_event(date, events):
     event = events.loc[
-        (date >= events["data_inicial"]) & (date <= events["data_final"]), "evento"
+        (date >= events["data_inicial"]) & (date <= events["data_final"]),
+        "evento",
     ]
     return event.item() if event.shape[0] > 0 else None
 
@@ -84,7 +87,9 @@ def dashboard(calls, events):
             min_date, max_date = dates
         except ValueError:
             st.write("")
-            st.error("Você deve selecionar um período de análise com duas datas")
+            st.error(
+                "Você deve selecionar um período de análise com duas datas"
+            )
             st.stop()
 
     calls = calls.loc[
@@ -128,7 +133,9 @@ def dashboard(calls, events):
         )
 
     with event_max_avg_col:
-        main_event = calls_during_events["durante_evento"].value_counts()  # .idxmax()
+        main_event = calls_during_events[
+            "durante_evento"
+        ].value_counts()  # .idxmax()
         if main_event.empty:
             main_event = "Nenhum evento"
         else:

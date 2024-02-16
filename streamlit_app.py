@@ -1,6 +1,7 @@
-import streamlit as st
 import pandas as pd
-import basedosdados as bd
+import pandas_gbq  # noqa: F401
+import streamlit as st
+
 from dashboards.chamados_em_um_dia import dashboard as chamados_em_um_dia
 from dashboards.chamados_por_subtipo import (
     dashboard as chamados_por_subtipo,

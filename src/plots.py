@@ -68,14 +68,30 @@ def plot_calls_ts(calls):
             rangeselector=dict(
                 buttons=list(
                     [
-                        dict(count=1, label="1 mês", step="month", stepmode="backward"),
                         dict(
-                            count=3, label="3 meses", step="month", stepmode="backward"
+                            count=1,
+                            label="1 mês",
+                            step="month",
+                            stepmode="backward",
                         ),
                         dict(
-                            count=6, label="6 meses", step="month", stepmode="backward"
+                            count=3,
+                            label="3 meses",
+                            step="month",
+                            stepmode="backward",
                         ),
-                        dict(count=1, label="1 ano", step="year", stepmode="backward"),
+                        dict(
+                            count=6,
+                            label="6 meses",
+                            step="month",
+                            stepmode="backward",
+                        ),
+                        dict(
+                            count=1,
+                            label="1 ano",
+                            step="year",
+                            stepmode="backward",
+                        ),
                         dict(label="tudo", step="all"),
                     ]
                 )

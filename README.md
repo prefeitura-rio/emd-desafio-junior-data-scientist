@@ -43,10 +43,9 @@ As perguntas do desafio estão detalhadas no arquivo `perguntas_desafio.md`.
 
 Se tiver alguma dúvida ou precisar de esclarecimentos adicionais sobre o desafio, entre em contato pelo email escritoriodedados@gmail.com.
 
-Boa sorte e estamos ansiosos para ver suas soluções! 
+Boa sorte e estamos ansiosos para ver suas soluções!
 
 ---
 
-**Escritório de Dados**  
+**Escritório de Dados**
 **Prefeitura da Cidade do Rio de Janeiro**
-

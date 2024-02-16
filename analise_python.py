@@ -11,7 +11,7 @@ df = bd.read_sql(
         DATE(data_inicio) = '2023-04-01'
         AND data_particao = "2023-04-01";
     """,
-    billing_project_id="avian-light-413816"
+    billing_project_id="avian-light-413816",
 )
 
 print(df)
@@ -22,18 +22,18 @@ df = bd.read_sql(
     """
     SELECT tipo,
         COUNT(*) AS total_chamados
-    FROM 
+    FROM
         `datario.administracao_servicos_publicos.chamado_1746`
-    WHERE 
+    WHERE
         DATE(data_inicio) = "2023-04-01"
         AND data_particao = "2023-04-01"
-    GROUP BY 
+    GROUP BY
         tipo
-    ORDER BY 
+    ORDER BY
         total_chamados DESC
     LIMIT 1
     """,
-    billing_project_id="avian-light-413816"
+    billing_project_id="avian-light-413816",
 )
 
 print(df)
@@ -44,26 +44,26 @@ df = bd.read_sql(
     WITH chamados_bairros AS (
         SELECT id_bairro,
             COUNT(*) AS total_chamados
-        FROM 
+        FROM
             `datario.administracao_servicos_publicos.chamado_1746`
-        WHERE 
+        WHERE
             DATE(data_inicio) = "2023-04-01"
             AND data_particao = "2023-04-01"
-        GROUP BY 
+        GROUP BY
             id_bairro
-        ORDER BY 
+        ORDER BY
             total_chamados DESC
         LIMIT 3
     )
     SELECT bairro.nome
-    FROM 
+    FROM
         chamados_bairros, `datario.dados_mestres.bairro` AS bairro
-    WHERE 
+    WHERE
         bairro.id_bairro = chamados_bairros.id_bairro
-    ORDER BY 
+    ORDER BY
         total_chamados DESC
     """,
-    billing_project_id="avian-light-413816"
+    billing_project_id="avian-light-413816",
 )
 
 print(df)
@@ -82,12 +82,13 @@ df = bd.read_sql(
     ORDER BY total_chamados DESC
     LIMIT 1;
     """,
-    billing_project_id="avian-light-413816"
+    billing_project_id="avian-light-413816",
 )
 
 print(df)
 
-# 5. Existe algum chamado aberto nesse dia que não foi associado a um bairro ou subprefeitura na tabela de bairros? Se sim, por que isso acontece?
+# 5. Existe algum chamado aberto nesse dia que não foi associado a um bairro ou subprefeitura na tabela de bairros?
+# Se sim, por que isso acontece?
 
 df = bd.read_sql(
     """
@@ -97,12 +98,13 @@ df = bd.read_sql(
         AND data_particao = "2023-04-01"
         AND id_bairro IS NULL;
     """,
-    billing_project_id="avian-light-413816"
+    billing_project_id="avian-light-413816",
 )
 
 print(df)
 
-# 6. Quantos chamados com o subtipo "Perturbação do sossego" foram abertos desde 01/01/2022 até 31/12/2023 (incluindo extremidades)?
+# 6. Quantos chamados com o subtipo "Perturbação do sossego" foram abertos desde 01/01/2022 até 31/12/2023
+# (incluindo extremidades)?
 
 df = bd.read_sql(
     """
@@ -113,24 +115,26 @@ df = bd.read_sql(
         AND data_inicio < "2024-01-01"
         AND data_particao BETWEEN "2022-01-01" AND "2023-12-31";
     """,
-    billing_project_id="avian-light-413816"
+    billing_project_id="avian-light-413816",
 )
 
 print(df)
 
-# 7. Selecione os chamados com esse subtipo que foram abertos durante os eventos contidos na tabela de eventos (Reveillon, Carnaval e Rock in Rio).
+# 7. Selecione os chamados com esse subtipo que foram abertos durante os eventos contidos na tabela de eventos
+# (Reveillon, Carnaval e Rock in Rio).
 
 df = bd.read_sql(
     """
     SELECT chamados.id_chamado,
         evento.evento
     FROM `datario.administracao_servicos_publicos.chamado_1746` chamados
-        JOIN `datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos` evento ON DATE(chamados.data_inicio) BETWEEN evento.data_inicial AND evento.data_final
+        JOIN `datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos` evento
+        ON DATE(chamados.data_inicio) BETWEEN evento.data_inicial AND evento.data_final
     WHERE chamados.subtipo = "Perturbação do sossego"
         AND chamados.data_particao BETWEEN "2022-01-01" AND "2023-12-31"
         AND evento.evento IN ("Reveillon", "Carnaval", "Rock in Rio");
     """,
-    billing_project_id="avian-light-413816"
+    billing_project_id="avian-light-413816",
 )
 
 print(df)
@@ -142,12 +146,13 @@ df = bd.read_sql(
     SELECT eventos.evento,
         COUNT(*) AS total_chamados
     FROM `datario.administracao_servicos_publicos.chamado_1746` chamados
-        JOIN `datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos` eventos ON DATE(chamados.data_inicio) BETWEEN eventos.data_inicial AND eventos.data_final
+        JOIN `datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos` eventos
+        ON DATE(chamados.data_inicio) BETWEEN eventos.data_inicial AND eventos.data_final
     WHERE chamados.subtipo = "Perturbação do sossego"
         AND chamados.data_particao BETWEEN "2022-01-01" AND "2023-12-31"
     GROUP BY eventos.evento;
     """,
-    billing_project_id="avian-light-413816"
+    billing_project_id="avian-light-413816",
 )
 
 print(df)
@@ -161,7 +166,8 @@ df = bd.read_sql(
             DATE(chamados.data_inicio) AS data_chamado,
             COUNT(*) AS total_chamados
         FROM `datario.administracao_servicos_publicos.chamado_1746` chamados
-            JOIN `datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos` eventos ON DATE(chamados.data_inicio) BETWEEN eventos.data_inicial AND eventos.data_final
+            JOIN `datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos` eventos
+            ON DATE(chamados.data_inicio) BETWEEN eventos.data_inicial AND eventos.data_final
         WHERE chamados.subtipo = "Perturbação do sossego"
             AND chamados.data_particao BETWEEN "2022-01-01" AND "2023-12-31"
         GROUP BY eventos.evento,
@@ -174,12 +180,14 @@ df = bd.read_sql(
     ORDER BY media_diaria DESC
     LIMIT 1;
     """,
-    billing_project_id="avian-light-413816"
+    billing_project_id="avian-light-413816",
 )
 
 print(df)
 
-# 10. Compare as médias diárias de chamados abertos desse subtipo durante os eventos específicos (Reveillon, Carnaval e Rock in Rio) e a média diária de chamados abertos desse subtipo considerando todo o período de 01/01/2022 até 31/12/2023.
+# 10. Compare as médias diárias de chamados abertos desse subtipo durante os eventos específicos
+# (Reveillon, Carnaval e Rock in Rio) e a média diária de chamados abertos desse subtipo considerando
+# todo o período de 01/01/2022 até 31/12/2023.
 
 df = bd.read_sql(
     """
@@ -188,7 +196,8 @@ df = bd.read_sql(
             DATE(chamados.data_inicio) AS data_chamado,
             COUNT(*) AS total_chamados
         FROM `datario.administracao_servicos_publicos.chamado_1746` chamados
-            JOIN `datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos` eventos ON DATE(chamados.data_inicio) BETWEEN eventos.data_inicial AND eventos.data_final
+            JOIN `datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos` eventos
+            ON DATE(chamados.data_inicio) BETWEEN eventos.data_inicial AND eventos.data_final
         WHERE chamados.subtipo = "Perturbação do sossego"
             AND chamados.data_particao BETWEEN "2022-01-01" AND "2023-12-31"
         GROUP BY eventos.evento,
@@ -212,7 +221,7 @@ df = bd.read_sql(
             GROUP BY data_chamado
         ) AS total_chamados_perturbacao;
     """,
-    billing_project_id="avian-light-413816"
+    billing_project_id="avian-light-413816",
 )
 
 print(df)
