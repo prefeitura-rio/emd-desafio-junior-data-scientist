@@ -28,4 +28,4 @@ make_whitelist = true
 min_confidence = 80
 sort_by_size = true
 verbose = true
-paths = ["src/", "dashboards/", "mypages/"]
+paths = ["src/"]

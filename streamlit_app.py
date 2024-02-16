@@ -2,11 +2,11 @@ import pandas as pd
 import pandas_gbq  # noqa: F401
 import streamlit as st
 
-from dashboards.chamados_em_um_dia import dashboard as chamados_em_um_dia
-from dashboards.chamados_por_subtipo import (
+from src.dashboards.chamados_em_um_dia import dashboard as chamados_em_um_dia
+from src.dashboards.chamados_por_subtipo import (
     dashboard as chamados_por_subtipo,
 )
-from mypages.homepage import page as homepage
+from src.mypages.homepage import page as homepage
 
 
 @st.cache_data
