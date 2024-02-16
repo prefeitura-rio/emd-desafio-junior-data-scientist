@@ -167,3 +167,33 @@ h1 {
     width: 300px;
     min-width: 100px;
 }
+
+
+/* Estilos para a página inicial */
+.home_container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.home_container p, .home_container li{
+    font-size: 1.1rem;
+    text-align: justify;
+}
+
+.home_container h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.home_container ul {
+    padding-left: 20px;
+}
+
+.home_container h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
