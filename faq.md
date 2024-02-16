@@ -5,3 +5,6 @@
 
 2. **Na descrição do desafio, na etapa 4, vocês informam `Utilize Python e pandas para resolver todas as questões contidas no arquivo perguntas_desafio.md. Salve suas respostas em um arquivo analise_python.sql. Para acessar os dados do BigQuery no python, siga o tutorial acima e utilize a biblioteca basedosdados.` A extensão do arquivo "analise_python.sql" está correta? Poderia ser um arquivo ".py" ou ".ipynb"?**
    - A extensão estava incorreta por um erro de digitação que já foi corrigido. O correto é salvar um arquivo de código Python como `.py` ou `.ipynb`.
+
+3. **Preenchi e enviei o formulário com a entrega das minhas respostas, mas agora quero alterar alguma coisa devido ao FAQ ou qualquer outro motivo. Como fica minha avaliação?**
+   - Você será avaliado pelo estado do seu repositório no dia 25/02/2024 às 23:59, horário de Brasília. Então fique a vontade para alterar, melhorar ou remover respostas até lá.
