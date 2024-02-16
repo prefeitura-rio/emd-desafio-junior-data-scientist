@@ -23,20 +23,30 @@ footer {
     background-color: #F7F7F7;
 }
 
-label[data-baseweb="radio"] p{
-    font-size: 1.1rem;
+[data-testid="stSidebarContent"] {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-label[data-baseweb="radio"]:has(input:checked) p{
-    color: #004A71;
-    font-weight: bold;
-    
+[data-testid="stSidebarUserContent"]  button[kind="primary"] {
+    background-color: #004A71;
+    border: 1px solid #003A54;
 }
 
-label[data-baseweb="radio"] {
-    margin: 0;
-    padding: 0;
+[data-testid="stSidebarUserContent"]  button[kind="secondary"]:hover {
+    color: #003A54;
+    border: 1px solid #003A54;
 }
+
+.block-container {
+    padding-top: 1rem;
+    padding-bottom: 0rem;
+    padding-left: 5rem;
+    padding-right: 5rem;
+}
+
 /* Estilos para o dashboard */
 
 .dashboard_header {
@@ -58,6 +68,10 @@ label[data-baseweb="radio"] {
     margin: 0;
     position: absolute;
     top: 85%;
+    word-wrap: break-word;
+    white-space: wrap;
+    max-width: 400px;
+    text-align: justify;
 }
 
 .highlighted {
@@ -99,16 +113,30 @@ h1 {
 @media screen and (max-width: 768px){
     .card {
         max-width: 100%;
-        font-size: 2vh;
-    }
-
-    .dashboard_subtitle {
-        top: 90%;
+        font-size: 5vh;
     }
 }
 
+@media screen and (max-width: 480px){
+    .card {
+        max-width: 100%;
+        font-size: 2.5vh;
+    }
+
+    .dashboard_title {
+        font-size: 1.5rem;
+        margin-bottom: 25px;
+    }
+
+    .dashboard_subtitle {
+        font-size: 1rem;
+        top: 80%;
+    }
+    
+}
+
 .card h2 {
-    font-size: inherit;
+    font-size: 1.4rem;
     font-weight: bold;
     margin: 0;
     text-align: center;
@@ -120,7 +148,6 @@ h1 {
     overflow: hidden;
     text-overflow: ellipsis;
     max-height: 75px; 
-    /* border: 5px solid red; */
 }
 
 .card p {
@@ -131,4 +158,12 @@ h1 {
 
 .section_title {
     font-size: 1.4rem;
+}
+
+/* Estilos para sidebar */
+.sidebar_logo {
+    max-width: 100%;
+    height: auto;
+    width: 300px;
+    min-width: 100px;
 }
