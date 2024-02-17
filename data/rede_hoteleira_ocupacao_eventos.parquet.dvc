@@ -1,0 +1,5 @@
+outs:
+- md5: 19407afbfd6cfed27c1298f3ccdf484a
+  size: 4408
+  hash: md5
+  path: rede_hoteleira_ocupacao_eventos.parquet

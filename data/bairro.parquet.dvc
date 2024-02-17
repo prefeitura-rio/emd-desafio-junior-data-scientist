@@ -1,0 +1,5 @@
+outs:
+- md5: 733b9e3ffe1ec167cada2e46aba60cdb
+  size: 4286878
+  hash: md5
+  path: bairro.parquet

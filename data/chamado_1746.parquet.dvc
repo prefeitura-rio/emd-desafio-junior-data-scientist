@@ -1,0 +1,5 @@
+outs:
+- md5: 514700c24a70d10d7bec8c71baf4fc17
+  size: 85018809
+  hash: md5
+  path: chamado_1746.parquet
