@@ -7,6 +7,8 @@ from src.dashboards.chamados_por_subtipo import (
     dashboard as chamados_por_subtipo,
 )
 from src.mypages.homepage import page as homepage
+from src.mypages.queries_python_page import page as queries_python_page
+from src.mypages.queries_sql_page import page as queries_sql_page
 
 
 @st.cache_data
@@ -81,6 +83,8 @@ pages = {
     "home": homepage,
     "dashboard_1": lambda: chamados_em_um_dia(calls, neighborhoods),
     "dashboard_2": lambda: chamados_por_subtipo(calls, events),
+    "queries_sql": queries_sql_page,
+    "queries_python": queries_python_page,
 }
 
 
@@ -88,5 +92,8 @@ create_button("🏠 Página Inicial", "home")
 st.sidebar.markdown("### 📊 Dashboards")
 create_button("🗓️ Chamados em um dia", "dashboard_1")
 create_button("🔊 Chamados por subtipo", "dashboard_2")
+st.sidebar.markdown("### 💡 Solução do desafio")
+create_button("💾 Consultas em SQL", "queries_sql")
+create_button("🐍 Consultas em Python", "queries_python")
 
 pages[st.session_state["page"]]()
