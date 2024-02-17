@@ -451,10 +451,14 @@ calls_perturbacao_sossego_by_day = (
     .mean()
 )
 
-calls_during_events_by_event_and_day = calls_during_events_by_event_and_day.append(
-    pd.Series(
-        calls_perturbacao_sossego_by_day, index=["Período de 01/01/2022 até 31/12/2023"]
-    )
+calls_during_events_by_event_and_day = pd.concat(
+    [
+        calls_during_events_by_event_and_day,
+        pd.Series(
+            calls_perturbacao_sossego_by_day,
+            index=["Período de 01/01/2022 até 31/12/2023"],
+        ),
+    ]
 )
 print(calls_during_events_by_event_and_day)
 ```
