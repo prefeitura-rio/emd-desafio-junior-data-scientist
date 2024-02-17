@@ -1,5 +1,4 @@
 ## Localização de chamados do 1746
-#### Utilize a tabela de Chamados do 1746 e a tabela de Bairros do Rio de Janeiro para as perguntas de 1-5.
 
 1. Quantos chamados foram abertos no dia 01/04/2023?
     ```sql
@@ -75,7 +74,6 @@
     | Verificação de ar condicionado inoperante no ônibus|
 
 ## Chamados do 1746 em grandes eventos
-#### Utilize a tabela de Chamados do 1746 e a tabela de Ocupação Hoteleira em Grandes Eventos no Rio para as perguntas de 6-10. Para todas as perguntas considere o subtipo de chamado "Perturbação do sossego".
 
 6. Quantos chamados com o subtipo "Perturbação do sossego" foram abertos desde 01/01/2022 até 31/12/2023 (incluindo extremidades)?
     ```sql
@@ -199,5 +197,3 @@
     | Rock in Rio | 119.142857...|
     | Reveillon   | 45.6666666... |
     | Carnaval    | 60.25 |
-
-##### Importante: a tabela de Chamados do 1746 possui mais de 10M de linhas. Evite fazer consultas exploratórias na tabela sem um filtro ou limite de linhas para economizar sua cota no BigQuery!

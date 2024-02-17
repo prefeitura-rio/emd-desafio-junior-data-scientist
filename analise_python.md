@@ -1,3 +1,8 @@
+# Análise de chamados ao 1746
+
+Scripts em python usando pandas para responder as perguntas a seguir.
+
+
 ```python
 import pandas as pd
 import basedosdados as bd
@@ -35,6 +40,11 @@ events = bd.read_sql(
     billing_project_id="avian-light-413816",
 )
 ```
+
+    Downloading: 100%|[32m██████████[0m|
+    Downloading: 100%|[32m██████████[0m|
+    Downloading: 100%|[32m██████████[0m|
+
 
 ## Localização de chamados do 1746
 
@@ -82,10 +92,11 @@ display(top_3_neighborhoods)
 
 
 
+    nome
     Engenho de Dentro    8
-    Campo Grande         6
     Leblon               6
-    Name: nome, dtype: int64
+    Campo Grande         6
+    Name: count, dtype: int64
 
 
 4. Qual o nome da subprefeitura com mais chamados abertos nesse dia?
