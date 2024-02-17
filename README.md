@@ -9,8 +9,13 @@
     <p>Dashboard interativo para visualização e análise dos dados da Central 1746 do Rio de Janeiro.</p>
 </div>
 
-![Static Badge](https://img.shields.io/badge/3.10-%233776AB?style=flat-square&logo=python&logoColor=white&label=Python)
-![Static Badge](https://img.shields.io/badge/black-%23000000?style=flat-square&label=code%20style&link=https%3A%2F%2Fgithub.com%2Fpsf%2Fblack)
+![DVC](https://img.shields.io/badge/-DVC-blue?style=flat-square&logo=dvc&logoColor=white&color=%239463CF)
+![Python 3.10](https://img.shields.io/badge/3.10-%233776AB?style=flat-square&logo=python&logoColor=white&label=Python)
+![Code Style Black](https://img.shields.io/badge/black-%23000000?style=flat-square&label=code%20style&link=https%3A%2F%2Fgithub.com%2Fpsf%2Fblack)
+
+
+
+
 
 
 Este projeto consiste em um dashboard interativo para visualização e análise dos dados da Central 1746 do Rio de Janeiro durante o período de 2022 a 2023. A Central 1746 é responsável por receber e registrar solicitações, reclamações e denúncias dos cidadãos relacionadas a serviços públicos municipais.
@@ -41,16 +46,22 @@ git clone https://github.com/jessicacardoso/emd-analise-central-1746.git
 pip install -r requirements.txt
 ```
 
-3. Execute o aplicativo.
+3. Faça o download dos dados e coloque-os na pasta `data/`.
+```bash
+dvc pull
+```
+
+4. Execute o aplicativo.
 ```bash
 streamlit run streamlit_app.py
 ```
-4. Ou execute o aplicativo em um contêiner Docker:
+
+5. Ou execute o aplicativo em um contêiner Docker:
 ```bash
 docker build -t dashboard-1746 .
 docker run -p 8501:8501 dashboard-1746
 ```
-5. Acesse o endereço exibido no terminal (normalmente http://localhost:8501).
+6. Acesse o endereço exibido no terminal (normalmente http://localhost:8501).
 
 ## :floppy_disk: Dados
 
