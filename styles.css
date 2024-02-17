@@ -100,42 +100,16 @@ h1 {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 15px 0;
+    padding: 15px 8px;
     margin: 20px 0;
     max-height: 200vh;
     height: 120px;
-    font-size: 2.8vh;
     width: 100%;
     max-width: 250px;
 
 }
 
-@media screen and (max-width: 768px){
-    .card {
-        max-width: 100%;
-        font-size: 5vh;
-    }
-}
-
-@media screen and (max-width: 480px){
-    .card {
-        max-width: 100%;
-        font-size: 2.5vh;
-    }
-
-    .dashboard_title {
-        font-size: 1.5rem;
-        margin-bottom: 25px;
-    }
-
-    .dashboard_subtitle {
-        font-size: 1rem;
-        top: 80%;
-    }
-
-}
-
-.card h2 {
+.card_title {
     font-size: 1.4rem;
     font-weight: bold;
     margin: 0;
@@ -151,7 +125,7 @@ h1 {
 }
 
 .card p {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     margin: 0;
     text-align: center;
 }
@@ -196,4 +170,48 @@ h1 {
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 5px;
+}
+
+
+/* Regras telas menores */
+@media screen and (max-width: 1024px){
+    .card {
+        max-width: 100%;
+        font-size: 2.5vh;
+    }
+
+    .card_title {
+        font-size: 1.1rem;
+    }
+
+    .card p {
+        font-size: 1.5vw;
+        margin: 0;
+        text-align: center;
+    }
+
+}
+
+@media screen and (max-width: 768px){
+    .dashboard_title {
+        font-size: 1.5rem;
+        margin-bottom: 25px;
+    }
+    .card {
+        max-width: 100%;
+        font-size: 2.5vh;
+    }
+
+    .dashboard_subtitle {
+        font-size: 1rem;
+        top: 80%;
+    }
+
+}
+
+@media screen and (max-width: 480px){
+    .card p {
+        font-size: 3.5vw;
+    }
+
 }
