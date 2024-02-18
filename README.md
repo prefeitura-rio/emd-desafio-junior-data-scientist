@@ -13,11 +13,6 @@
 ![Python 3.10](https://img.shields.io/badge/3.10-%233776AB?style=flat-square&logo=python&logoColor=white&label=Python)
 ![Code Style Black](https://img.shields.io/badge/black-%23000000?style=flat-square&label=code%20style&link=https%3A%2F%2Fgithub.com%2Fpsf%2Fblack)
 
-
-
-
-
-
 Este projeto consiste em um dashboard interativo para visualização e análise dos dados da Central 1746 do Rio de Janeiro durante o período de 2022 a 2023. A Central 1746 é responsável por receber e registrar solicitações, reclamações e denúncias dos cidadãos relacionadas a serviços públicos municipais.
 
 
@@ -66,3 +61,9 @@ docker run -p 8501:8501 dashboard-1746
 ## :floppy_disk: Dados
 
 Os dados utilizados neste projeto foram obtidos do projeto `datario`, disponível no Google Cloud Platform. Eles contêm informações sobre as ocorrências registradas na Central 1746, incluindo detalhes como tipo de serviço, localização, data e hora. As instruções para obter os dados estão disponíveis no [tutorial do Escritório de Dados](https://docs.dados.rio/tutoriais/como-acessar-dados/).
+
+Abaixo, temos um diagrama das tabelas utilizadas no projeto:
+
+<div align="center">
+    <img src="dicionario-dados/tabelas-desafio.svg" height="600" alt="Tabelas do Desafio">
+</div>
