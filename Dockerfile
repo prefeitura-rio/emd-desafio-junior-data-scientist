@@ -47,5 +47,8 @@ COPY . .
 # Expose the port that the application listens on.
 EXPOSE 8501
 
+# The HEALTHCHECK instruction tells Docker how to test a container to check that it is still working
+HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
+
 # Run the application.
-CMD streamlit run streamlit_app.py --server.port 8501
+ENTRYPOINT ["streamlit", "run", "streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
