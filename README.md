@@ -36,14 +36,15 @@ Este projeto consiste em um dashboard interativo para visualização e análise 
 git clone https://github.com/jessicacardoso/emd-analise-central-1746.git
 ```
 
-2. Instale as dependências.
+2. Faça o download dos dados e coloque-os na pasta `data/`.
 ```bash
-pip install -r requirements.txt
+pip install dvc[gdrive]
+dvc pull
 ```
 
-3. Faça o download dos dados e coloque-os na pasta `data/`.
+3. Instale as dependências.
 ```bash
-dvc pull
+pip install -r requirements.txt
 ```
 
 4. Execute o aplicativo.
