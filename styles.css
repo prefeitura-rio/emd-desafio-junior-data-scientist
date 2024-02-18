@@ -202,10 +202,6 @@ h2 {
         font-size: 1.5rem;
         margin-bottom: 25px;
     }
-    .card {
-        max-width: 100%;
-        font-size: 2.5vh;
-    }
 
     .dashboard_subtitle {
         font-size: 1rem;
@@ -214,10 +210,14 @@ h2 {
 
 }
 
-@media screen and (max-width: 480px){
+@media screen and (max-width: 640px){
     .card {
         margin: 10px 0;
     }
+
+}
+
+@media screen and (max-width: 480px){
     .card p {
         font-size: 3.5vw;
     }
