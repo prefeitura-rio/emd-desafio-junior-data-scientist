@@ -1,9 +1,9 @@
 import datetime
 
-import plotly.express as px
 import streamlit as st
 
 from src.plots import make_choropleth
+from src.plots import plot_calls_by_neighborhood
 
 
 def filter_data(data, dt):
@@ -117,41 +117,10 @@ def dashboard(data, neighborhoods):
         )
 
     with neighborhoods_col:
-        top_10 = (
-            calls_by_neighborhood["nome"].value_counts().head(10).sort_values()
-        )
-        fig = px.bar(
-            top_10,
-            x=top_10.values,
-            y=top_10.index,
-            orientation="h",
-            labels={"x": "Chamados", "y": "Bairro"},
-            width=400,
-            height=350,
-        )
-
-        fig.update_traces(marker_color="#004A71")
-
-        for i, v in enumerate(top_10.values):
-            fig.add_annotation(
-                x=v,
-                y=top_10.index[i],
-                text=str(v),
-                xshift=12,
-                showarrow=False,
-            )
-        fig.update_yaxes(title_text="")
-        fig.update_layout(
-            xaxis_visible=False,
-            xaxis_showticklabels=False,
-            margin=dict(l=0, r=0, b=0, t=0),
-            plot_bgcolor="rgba(0,0,0,0)",
-            paper_bgcolor="rgba(0,0,0,0)",
-            showlegend=False,
-        )
-
         st.plotly_chart(
-            fig, config={"displayModeBar": False}, use_container_width=True
+            plot_calls_by_neighborhood(calls_by_neighborhood),
+            config={"displayModeBar": False},
+            use_container_width=True,
         )
 
     # ------ Chamados não associados a um bairro

@@ -2,6 +2,50 @@ import geopandas as gpd
 import plotly.express as px
 
 
+def plot_calls_by_neighborhood(calls_by_neighborhood, top_n=10, height=350):
+    top_10 = (
+        calls_by_neighborhood["nome"].value_counts().head(top_n).sort_values()
+    )
+    fig = px.bar(
+        top_10,
+        x=top_10.values,
+        y=top_10.index,
+        orientation="h",
+        labels={"x": "Chamados", "y": "Bairro"},
+        height=height,
+    )
+
+    fig.update_yaxes(title_text="")
+    fig.update_layout(
+        xaxis_visible=False,
+        xaxis_showticklabels=False,
+        margin=dict(l=0, r=0, b=0, t=0),
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        showlegend=False,
+    )
+    fig.update_traces(
+        marker_color="#004A80",
+        texttemplate="<b>%{x}</b>",
+        textposition=[
+            "inside" if i == top_10.shape[0] - 1 else "outside"
+            for i in range(top_10.shape[0])
+        ],
+        textfont=dict(size=16),
+    )
+
+    fig.update_layout(
+        yaxis=dict(
+            showline=True,
+            linewidth=2,
+            linecolor="black",
+            tickfont=dict(size=16),
+        ),
+    )
+    fig.update_yaxes(ticksuffix="   ")
+    return fig
+
+
 def make_choropleth(calls, neighborhoods):
     neighboards_calls = (
         calls.merge(neighborhoods, how="right", on="id_bairro")
