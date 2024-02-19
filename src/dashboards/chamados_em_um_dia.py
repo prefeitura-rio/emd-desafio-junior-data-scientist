@@ -3,7 +3,7 @@ import datetime
 import streamlit as st
 
 from src.plots import make_choropleth
-from src.plots import plot_calls_by_neighborhood
+from src.plots import plot_bar_chart
 
 
 def filter_data(data, dt):
@@ -117,8 +117,21 @@ def dashboard(data, neighborhoods):
         )
 
     with neighborhoods_col:
+        top_10 = (
+            calls_by_neighborhood["nome"]
+            .value_counts()
+            .head(10)
+            .sort_values()
+            .reset_index()
+        )
         st.plotly_chart(
-            plot_calls_by_neighborhood(calls_by_neighborhood),
+            plot_bar_chart(
+                top_10,
+                "count",
+                "nome",
+                height=350,
+                margin=dict(l=0, r=0, b=0, t=0),
+            ),
             config={"displayModeBar": False},
             use_container_width=True,
         )

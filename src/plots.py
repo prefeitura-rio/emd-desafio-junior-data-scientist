@@ -1,48 +1,81 @@
+from typing import Any
+from typing import Dict
+from typing import Optional
+
 import geopandas as gpd
+import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 
 
-def plot_calls_by_neighborhood(calls_by_neighborhood, top_n=10, height=350):
-    top_10 = (
-        calls_by_neighborhood["nome"].value_counts().head(top_n).sort_values()
-    )
+def plot_bar_chart(
+    data: pd.DataFrame,
+    x: str,
+    y: str,
+    x_label: str = "",
+    y_label: str = "",
+    title: str = "",
+    title_font_size: Optional[int] = None,
+    margin: Optional[Dict[str, Any]] = None,
+    height: Optional[int] = None,
+) -> go.Figure:
+    """
+    Plota um gráfico de barras horizontal.
+
+    Args:
+        data (pd.DataFrame): O dataframe contendo os dados a serem plotados.
+        x (str): A coluna do dataframe a ser usada no eixo x.
+        y (str): A coluna do dataframe a ser usada no eixo y.
+        x_label (str, optional): O rótulo do eixo x. Defaults to "".
+        y_label (str, optional): O rótulo do eixo y. Defaults to "".
+        title (str, optional): O título do gráfico. Defaults to "".
+        title_font_size (int, optional): O tamanho da fonte do título. Defaults to None.
+        margin (dict, optional): Configuração das margens do gráfico. Defaults to None.
+        height (int, optional): A altura do gráfico. Defaults to None.
+
+    Returns:
+        go.Figure: O objeto figura do Plotly contendo o gráfico de barras.
+    """
+    # Cria um gráfico de barras horizontal
     fig = px.bar(
-        top_10,
-        x=top_10.values,
-        y=top_10.index,
+        data,
+        x=x,
+        y=y,
+        title=title,
         orientation="h",
-        labels={"x": "Chamados", "y": "Bairro"},
+        labels={"x": x_label, "y": y_label},
         height=height,
     )
 
-    fig.update_yaxes(title_text="")
-    fig.update_layout(
-        xaxis_visible=False,
-        xaxis_showticklabels=False,
-        margin=dict(l=0, r=0, b=0, t=0),
-        plot_bgcolor="rgba(0,0,0,0)",
-        paper_bgcolor="rgba(0,0,0,0)",
-        showlegend=False,
-    )
+    # Configurações para a aparência das barras
     fig.update_traces(
         marker_color="#004A80",
         texttemplate="<b>%{x}</b>",
         textposition=[
-            "inside" if i == top_10.shape[0] - 1 else "outside"
-            for i in range(top_10.shape[0])
+            "inside" if i == data.shape[0] - 1 else "outside"
+            for i in range(data.shape[0])
         ],
         textfont=dict(size=16),
     )
 
+    # Configurações adicionais para o layout do gráfico
     fig.update_layout(
+        xaxis_visible=False,
+        xaxis_showticklabels=False,
+        margin=margin,
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        showlegend=False,
         yaxis=dict(
             showline=True,
             linewidth=2,
             linecolor="black",
             tickfont=dict(size=16),
         ),
+        title_font_size=title_font_size,
     )
-    fig.update_yaxes(ticksuffix="   ")
+    fig.update_yaxes(title_text="", ticksuffix="   ")
+
     return fig
 
 
@@ -154,45 +187,4 @@ def plot_calls_ts(calls):
         height=350,
     )
 
-    return fig
-
-
-def plot_calls_during_events(calls_during_events):
-    fig = px.bar(
-        calls_during_events,
-        x="chamados",
-        y="evento",
-        template="plotly_white",
-    )
-
-    fig.update_yaxes(title=None)
-    fig.update_xaxes(title=None)
-
-    fig.update_layout(
-        xaxis=dict(tickfont=dict(size=14)), yaxis=dict(tickfont=dict(size=14))
-    )
-
-    fig.update_layout(
-        showlegend=False,
-        margin=dict(r=0, b=0),
-        plot_bgcolor="#f9f9f9",
-        paper_bgcolor="#f9f9f9",
-        autosize=True,
-        height=380,
-        title=dict(
-            text="Quantidade de chamados por evento",
-            font=dict(size=20, color="#004A80"),
-        ),
-    )
-
-    fig.update_traces(
-        marker_color="#004A80",
-        texttemplate="<b>%{x}</b>",
-        textposition=[
-            "inside" if i == calls_during_events.shape[0] - 1 else "outside"
-            for i in range(calls_during_events.shape[0])
-        ],
-        textfont=dict(size=16),
-    )
-    fig.update_xaxes(showticklabels=False)
     return fig

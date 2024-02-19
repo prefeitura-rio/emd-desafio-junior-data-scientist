@@ -4,6 +4,8 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
+from src.plots import plot_bar_chart
+
 
 def create_days_of_week(data):
     return data.assign(
@@ -184,22 +186,20 @@ def dashboard(calls, neighborhoods):
             st.plotly_chart(fig, use_container_width=True)
 
         with col2:
-            fig = px.bar(
-                data["status"].value_counts().sort_values().reset_index(),
-                x="count",
-                y="status",
-                title="Número de chamados por status",
+            st.plotly_chart(
+                plot_bar_chart(
+                    data["status"]
+                    .value_counts()
+                    .reset_index()
+                    .sort_values("count"),
+                    "count",
+                    "status",
+                    title="Número de chamados por status",
+                    title_font_size=20,
+                ),
+                config={"displayModeBar": False},
+                use_container_width=True,
             )
-            fig.update_layout(
-                plot_bgcolor="rgba(0,0,0,0)",
-                paper_bgcolor="rgba(0,0,0,0)",
-                showlegend=False,
-            )
-            fig.update_traces(marker_color="#004A80")
-            fig.update_xaxes(title_text="")
-            fig.update_yaxes(title_text="")
-            fig.update_layout(title_font_size=20)
-            st.plotly_chart(fig, use_container_width=True)
 
         with col3:
             fig = px.bar(

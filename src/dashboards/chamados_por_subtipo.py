@@ -2,7 +2,7 @@ import datetime
 
 import streamlit as st
 
-from src.plots import plot_calls_during_events
+from src.plots import plot_bar_chart
 from src.plots import plot_calls_ts
 
 
@@ -211,8 +211,12 @@ def dashboard(calls, events):
         )
         calls_during_events.columns = ["evento", "chamados"]
         st.plotly_chart(
-            plot_calls_during_events(
-                calls_during_events.sort_values("chamados", ascending=True)
+            plot_bar_chart(
+                calls_during_events.sort_values("chamados", ascending=True),
+                "chamados",
+                "evento",
+                height=380,
+                margin=dict(l=0, r=0, b=0, t=0),
             ),
             use_container_width=True,
             theme="streamlit",
