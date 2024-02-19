@@ -79,7 +79,20 @@ def plot_bar_chart(
     return fig
 
 
-def make_choropleth(calls, neighborhoods):
+def make_choropleth(
+    calls: pd.DataFrame, neighborhoods: pd.DataFrame
+) -> go.Figure:
+    """
+    Cria um mapa de coroplético com base nos chamados por bairro.
+
+    Args:
+        calls (pd.DataFrame): O dataframe contendo os chamados.
+        neighborhoods (pd.DataFrame): O dataframe contendo os bairros.
+
+    Returns:
+        go.Figure: O objeto figura do Plotly contendo o mapa de coroplético.
+    """
+    # Agrupa os chamados por bairro
     neighboards_calls = (
         calls.merge(neighborhoods, how="right", on="id_bairro")
         .groupby("id_bairro")
@@ -95,11 +108,14 @@ def make_choropleth(calls, neighborhoods):
         .sort_values("chamados", ascending=False)
     )
 
+    # Cria um GeoDataFrame a partir do resultado
     neighboards_calls = gpd.GeoDataFrame(
         neighboards_calls,
         geometry=gpd.GeoSeries.from_wkt(neighboards_calls["geometry"]),
         crs="EPSG:4326",
     )
+
+    # Cria o mapa de coroplético
     fig = px.choropleth_mapbox(
         neighboards_calls,
         geojson=neighboards_calls["geometry"],
@@ -116,28 +132,42 @@ def make_choropleth(calls, neighborhoods):
         height=350,
     )
 
+    # Configurações adicionais para o layout do gráfico
     fig.update_layout(
         coloraxis_showscale=False,
         margin={"r": 0, "t": 0, "l": 0, "b": 0},
     )
+
     return fig
 
 
-def plot_calls_ts(calls):
+def plot_calls_ts(calls: pd.DataFrame) -> go.Figure:
+    """
+    Plota um gráfico de séries temporais para os chamados.
+
+    Args:
+        calls (pd.DataFrame): O dataframe contendo os chamados.
+
+    Returns:
+        go.Figure: O objeto figura do Plotly contendo o gráfico de séries temporais.
+    """
+    # Cria um gráfico de linha com a contagem de chamados por data
     fig = px.line(
         calls["data_inicio"].dt.date.value_counts().sort_index(),
         template="plotly_white",
     )
 
+    # Configurações visuais para as linhas do gráfico
     fig.update_traces(line=dict(color="#004A80", width=2))
 
+    # Configurações adicionais para o layout do gráfico
     fig.update_yaxes(title=None)
     fig.update_xaxes(title=None)
-
     fig.update_layout(
         xaxis=dict(tickfont=dict(size=14)), yaxis=dict(tickfont=dict(size=14))
     )
 
+    # Configurações para o seletor de intervalo de datas
     fig.update_layout(
         showlegend=False,
         margin=dict(r=0, b=0),
@@ -180,7 +210,7 @@ def plot_calls_ts(calls):
         paper_bgcolor="#f9f9f9",
     )
 
-    # alterar tamanho do gráfico
+    # Altera o tamanho do gráfico
     fig.update_layout(
         autosize=True,
         width=800,
