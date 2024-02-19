@@ -61,36 +61,37 @@ def dashboard(calls, events):
 
     error_col, filter_col = st.columns([2, 1])
 
-    with filter_col:
-        date_picker_col, subtype_col = st.columns([1, 1])
+    with st.container():
+        with filter_col:
+            date_picker_col, subtype_col = st.columns([1, 1])
 
-        with date_picker_col:
-            dates = st.date_input(
-                "Selecione o período",
-                [min_date, max_date],
-                min_value=min_date,
-                max_value=max_date,
-                help="Selecione o período de análise",
-            )
+            with date_picker_col:
+                dates = st.date_input(
+                    "Selecione o período",
+                    [min_date, max_date],
+                    min_value=min_date,
+                    max_value=max_date,
+                    help="Selecione o período de análise",
+                )
 
-        with subtype_col:
-            subtypes = get_subtypes(calls)
-            subtype = st.selectbox(
-                "Selecione o subtipo",
-                subtypes,
-                index=subtypes.index("Perturbação do sossego"),
-                help="Selecione o subtipo de chamado para análise",
-            )
+            with subtype_col:
+                subtypes = get_subtypes(calls)
+                subtype = st.selectbox(
+                    "Selecione o subtipo",
+                    subtypes,
+                    index=subtypes.index("Perturbação do sossego"),
+                    help="Selecione o subtipo de chamado para análise",
+                )
 
-    with error_col:
-        try:
-            min_date, max_date = dates
-        except ValueError:
-            st.write("")
-            st.error(
-                "Você deve selecionar um período de análise com duas datas"
-            )
-            st.stop()
+        with error_col:
+            try:
+                min_date, max_date = dates
+            except ValueError:
+                st.write("")
+                st.error(
+                    "Você deve selecionar um período de análise com duas datas"
+                )
+                st.stop()
 
     calls = calls.loc[
         (calls.data_inicio.dt.date >= min_date)
@@ -107,118 +108,131 @@ def dashboard(calls, events):
         avg_calls_during_event_col,
     ) = st.columns(5)
 
-    with subtype_col:
+    with st.container():
+        with subtype_col:
+            st.markdown(
+                f"""
+                <div class="card">
+                    <h2 class="card_title"
+                    title="{subtype}"
+                    >{subtype}</h2>
+                    <p class="card_value">Subtipo selecionado</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+        with calls_qty_cot:
+            st.markdown(
+                f"""
+                <div class="card">
+                    <h2 class="card_title">{filtered_calls.shape[0]}</h2>
+                    <p class="card_value
+                    ">Chamados abertos desse subtipo</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+        with event_max_avg_col:
+            main_event = calls_during_events[
+                "durante_evento"
+            ].value_counts()  # .idxmax()
+            if main_event.empty:
+                main_event = "Nenhum evento"
+            else:
+                main_event = main_event.idxmax()
+            st.markdown(
+                f"""
+                <div class="card">
+                    <h2 class="card_title
+                    ">{main_event}</h2>
+                    <p class="card_value
+                    ">Evento com mais chamados</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+        with avg_calls_col:
+            st.markdown(
+                f"""
+                <div class="card">
+                    <h2 class="card_title
+                    ">{get_avg_calls(filtered_calls):.2f}</h2>
+                    <p class="card_value
+                    ">Média diária durante todo o período</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+        with avg_calls_during_event_col:
+            st.markdown(
+                f"""
+                <div class="card">
+                    <h2 class="card_title
+                    ">{get_avg_calls(calls_during_events.dropna(subset=["durante_evento"])):.2f}</h2>
+                    <p class="card_value
+                    ">Média diária durante eventos</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+    with st.container():
         st.markdown(
-            f"""
-            <div class="card">
-                <h2 class="card_title"
-                title="{subtype}"
-                >{subtype}</h2>
-                <p class="card_value">Subtipo selecionado</p>
-            </div>
+            """
+            <h2 class="section_title">Série Temporal de Chamados</h2>
             """,
             unsafe_allow_html=True,
         )
 
-    with calls_qty_cot:
-        st.markdown(
-            f"""
-            <div class="card">
-                <h2 class="card_title">{filtered_calls.shape[0]}</h2>
-                <p class="card_value
-                ">Chamados abertos desse subtipo</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with event_max_avg_col:
-        main_event = calls_during_events[
-            "durante_evento"
-        ].value_counts()  # .idxmax()
-        if main_event.empty:
-            main_event = "Nenhum evento"
-        else:
-            main_event = main_event.idxmax()
-        st.markdown(
-            f"""
-            <div class="card">
-                <h2 class="card_title
-                ">{main_event}</h2>
-                <p class="card_value
-                ">Evento com mais chamados</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with avg_calls_col:
-        st.markdown(
-            f"""
-            <div class="card">
-                <h2 class="card_title
-                ">{get_avg_calls(filtered_calls):.2f}</h2>
-                <p class="card_value
-                ">Média diária durante todo o período</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    with avg_calls_during_event_col:
-        st.markdown(
-            f"""
-            <div class="card">
-                <h2 class="card_title
-                ">{get_avg_calls(calls_during_events.dropna(subset=["durante_evento"])):.2f}</h2>
-                <p class="card_value
-                ">Média diária durante eventos</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    st.markdown(
-        """
-        <h2 class="section_title">Série Temporal de Chamados</h2>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    st.plotly_chart(
-        plot_calls_ts(filtered_calls),
-        use_container_width=True,
-        theme="streamlit",
-        config={"displayModeBar": False},
-    )
-
-    st.markdown(
-        """
-        <h2 class="section_title">Chamados Durante Eventos</h2>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    bar_chart_col, table_col = st.columns([1, 1])
-
-    calls_during_events = calls_during_events.dropna(subset=["durante_evento"])
-    with table_col:
-        st.dataframe(calls_during_events)
-
-    with bar_chart_col:
-        calls_during_events = (
-            calls_during_events["durante_evento"].value_counts().reset_index()
-        )
-        calls_during_events.columns = ["evento", "chamados"]
         st.plotly_chart(
-            plot_bar_chart(
-                calls_during_events.sort_values("chamados", ascending=True),
-                "chamados",
-                "evento",
-                height=380,
-                margin=dict(l=0, r=0, b=0, t=0),
-            ),
+            plot_calls_ts(filtered_calls),
             use_container_width=True,
             theme="streamlit",
             config={"displayModeBar": False},
         )
+
+        st.markdown(
+            """
+            <h2 class="section_title">Chamados Durante Eventos</h2>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    bar_chart_col, table_col = st.columns([1, 1])
+
+    calls_during_events = calls_during_events.dropna(subset=["durante_evento"])
+
+    with st.container():
+        if calls_during_events.empty:
+            st.markdown(
+                "Não há chamados registrados durante eventos no período selecionado"
+            )
+            return
+        with table_col:
+            st.dataframe(calls_during_events)
+
+        with bar_chart_col:
+            calls_during_events = (
+                calls_during_events["durante_evento"]
+                .value_counts()
+                .reset_index()
+            )
+            calls_during_events.columns = ["evento", "chamados"]
+            st.plotly_chart(
+                plot_bar_chart(
+                    calls_during_events.sort_values(
+                        "chamados", ascending=True
+                    ),
+                    "chamados",
+                    "evento",
+                    height=380,
+                    margin=dict(l=0, r=0, b=0, t=0),
+                ),
+                use_container_width=True,
+                theme="streamlit",
+                config={"displayModeBar": False},
+            )

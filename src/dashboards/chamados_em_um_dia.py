@@ -44,118 +44,121 @@ def dashboard(data, neighborhoods):
         st.columns((1, 1, 1, 1))
     )
 
-    with calls_amount_col:
+    with st.container():
+
+        with calls_amount_col:
+            st.markdown(
+                f"""
+                <div class="card">
+                    <h2 class="card_title">{filtered_data.shape[0]}</h2>
+                    <p class="card_value">Quantidade de chamados</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+        with most_common_call_col:
+            most_common_call = filtered_data.tipo.value_counts().idxmax()
+            st.markdown(
+                f"""
+                <div class="card">
+                    <h2 class="card_title"
+                    title="{most_common_call}"
+                    >{most_common_call}</h2>
+                    <p class="card_value">Tipo mais comum</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+        with subprefecture_col:
+            calls_by_neighborhood = get_calls_by_neighborhood(
+                filtered_data, neighborhoods
+            )
+            subprefecture = (
+                calls_by_neighborhood.subprefeitura.value_counts().idxmax()
+            )
+            st.markdown(
+                f"""
+                <div class="card">
+                    <h2 class="card_title"
+                    >{subprefecture}</h2>
+                    <p class="card_value">Subprefeitura comum</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+        with date_col:
+            st.markdown(
+                f"""
+                <div class="card">
+                    <h2 class="card_title">{dt.strftime('%d/%m/%Y')}</h2>
+                    <p class="card_value
+                    ">Data que foi selecionada</p>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+    with st.container():
+        # -----------------# Plots Section #-----------------#
         st.markdown(
-            f"""
-            <div class="card">
-                <h2 class="card_title">{filtered_data.shape[0]}</h2>
-                <p class="card_value">Quantidade de chamados</p>
-            </div>
+            """
+            <h2 class="section_title">Mapa de Chamados</h2>
+            <p class="section_subtitle">Distribuição de chamados por bairro</p>
             """,
             unsafe_allow_html=True,
         )
 
-    with most_common_call_col:
-        most_common_call = filtered_data.tipo.value_counts().idxmax()
-        st.markdown(
-            f"""
-            <div class="card">
-                <h2 class="card_title"
-                title="{most_common_call}"
-                >{most_common_call}</h2>
-                <p class="card_value">Tipo mais comum</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        map_col, neighborhoods_col = st.columns((1, 1))
 
-    with subprefecture_col:
-        calls_by_neighborhood = get_calls_by_neighborhood(
-            filtered_data, neighborhoods
-        )
-        subprefecture = (
-            calls_by_neighborhood.subprefeitura.value_counts().idxmax()
-        )
-        st.markdown(
-            f"""
-            <div class="card">
-                <h2 class="card_title"
-                >{subprefecture}</h2>
-                <p class="card_value">Subprefeitura comum</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        with map_col:
+            st.plotly_chart(
+                make_choropleth(filtered_data, neighborhoods),
+                use_container_width=True,
+            )
 
-    with date_col:
-        st.markdown(
-            f"""
-            <div class="card">
-                <h2 class="card_title">{dt.strftime('%d/%m/%Y')}</h2>
-                <p class="card_value
-                ">Data que foi selecionada</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-    # -----------------# Plots Section #-----------------#
-    st.markdown(
-        """
-        <h2 class="section_title">Mapa de Chamados</h2>
-        <p class="section_subtitle">Distribuição de chamados por bairro</p>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    map_col, neighborhoods_col = st.columns((1, 1))
-
-    with map_col:
-        st.plotly_chart(
-            make_choropleth(filtered_data, neighborhoods),
-            use_container_width=True,
-        )
-
-    with neighborhoods_col:
-        top_10 = (
-            calls_by_neighborhood["nome"]
-            .value_counts()
-            .head(10)
-            .sort_values()
-            .reset_index()
-        )
-        st.plotly_chart(
-            plot_bar_chart(
-                top_10,
-                "count",
-                "nome",
-                height=350,
-                margin=dict(l=0, r=0, b=0, t=0),
-            ),
-            config={"displayModeBar": False},
-            use_container_width=True,
-        )
+        with neighborhoods_col:
+            top_10 = (
+                calls_by_neighborhood["nome"]
+                .value_counts()
+                .head(10)
+                .sort_values()
+                .reset_index()
+            )
+            st.plotly_chart(
+                plot_bar_chart(
+                    top_10,
+                    "count",
+                    "nome",
+                    height=350,
+                    margin=dict(l=0, r=0, b=0, t=0),
+                ),
+                config={"displayModeBar": False},
+                use_container_width=True,
+            )
 
     # ------ Chamados não associados a um bairro
+    with st.container():
+        st.markdown(
+            """
+            <h2 class="section_title">Chamados sem bairro associado</h2>
+            <p class="section_subtitle">Tipos e subtipos de chamados sem bairro associado</p>
+            """,
+            unsafe_allow_html=True,
+        )
 
-    st.markdown(
-        """
-        <h2 class="section_title">Chamados sem bairro associado</h2>
-        <p class="section_subtitle">Tipos e subtipos de chamados sem bairro associado</p>
-        """,
-        unsafe_allow_html=True,
-    )
-
-    calls_without_neighborhood = filtered_data[
-        filtered_data["id_bairro"].isna()
-    ]
-    st.dataframe(
-        calls_without_neighborhood[["id_chamado", "tipo", "subtipo"]]
-        .groupby(["tipo", "subtipo"])
-        .size()
-        .reset_index(name="quantidade")
-        .sort_values("quantidade", ascending=False),
-        use_container_width=True,
-        height=150,
-        hide_index=True,
-    )
+        calls_without_neighborhood = filtered_data[
+            filtered_data["id_bairro"].isna()
+        ]
+        st.dataframe(
+            calls_without_neighborhood[["id_chamado", "tipo", "subtipo"]]
+            .groupby(["tipo", "subtipo"])
+            .size()
+            .reset_index(name="quantidade")
+            .sort_values("quantidade", ascending=False),
+            use_container_width=True,
+            height=150,
+            hide_index=True,
+        )
