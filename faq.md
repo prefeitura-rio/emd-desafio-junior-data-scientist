@@ -8,3 +8,7 @@
 
 3. **Preenchi e enviei o formulário com a entrega das minhas respostas, mas agora quero alterar alguma coisa devido ao FAQ ou qualquer outro motivo. Como fica minha avaliação?**
    - Você será avaliado pelo estado do seu repositório no dia 25/02/2024 às 23:59, horário de Brasília. Então fique a vontade para alterar, melhorar ou remover respostas até lá.
+
+4. **O que significa "chamados abertos em determinado período"?**
+   - Abrir um chamado é o mesmo que criar, inicializar um chamado. Ou seja, "chamados abertos em determinado período" é o mesmo que "chamados criados em determinado período". 
+   
