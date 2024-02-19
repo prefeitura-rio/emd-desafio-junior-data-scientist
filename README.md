@@ -20,7 +20,7 @@ Este projeto consiste em um dashboard interativo para visualização e análise 
 
 - Visualização de estatísticas gerais sobre os atendimentos realizados.
 - Análise de tendências ao longo do tempo.
-- Geolocalização das ocorrências em um mapa interativo.
+- Geolocalização com destaque para os bairros com maior número de ocorrências.
 
 ## :computer: Tecnologias Utilizadas
 

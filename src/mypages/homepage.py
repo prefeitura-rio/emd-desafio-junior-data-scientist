@@ -31,6 +31,7 @@ def page():
                     <ul>
                         <li> Chamados em um dia: Análise dos chamados abertos no 1746 para um dia específico. </li>
                         <li> Chamados por subtipo: Análise dos chamados por subtipo, por exemplo, perturbação do sossego, reparo de luminária, etc. </li>
+                        <li> Análise por bairros: Análise dos chamados por bairros. </li>
                     </ul>
                     <li> Solução do Desafio: Solução do desafio proposto. </li>
                     <ul>

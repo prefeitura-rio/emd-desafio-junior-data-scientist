@@ -2,6 +2,7 @@ import pandas as pd
 import pandas_gbq  # noqa: F401
 import streamlit as st
 
+from src.dashboards.analise_por_bairros import dashboard as analise_por_bairros
 from src.dashboards.chamados_em_um_dia import dashboard as chamados_em_um_dia
 from src.dashboards.chamados_por_subtipo import (
     dashboard as chamados_por_subtipo,
@@ -18,9 +19,14 @@ def load_call_data():
         columns=[
             "id_chamado",
             "data_inicio",
+            "data_fim",
             "tipo",
             "subtipo",
             "id_bairro",
+            "dentro_prazo",
+            "situacao",
+            "tipo_situacao",
+            "status",
         ],
     )
 
@@ -83,6 +89,7 @@ pages = {
     "home": homepage,
     "dashboard_1": lambda: chamados_em_um_dia(calls, neighborhoods),
     "dashboard_2": lambda: chamados_por_subtipo(calls, events),
+    "analise_por_bairros": lambda: analise_por_bairros(calls, neighborhoods),
     "queries_sql": queries_sql_page,
     "queries_python": queries_python_page,
 }
@@ -92,6 +99,7 @@ create_button("🏠 Página Inicial", "home")
 st.sidebar.markdown("### 📊 Dashboards")
 create_button("🗓️ Chamados em um dia", "dashboard_1")
 create_button("🔊 Chamados por subtipo", "dashboard_2")
+create_button("🏘️ Análise por bairros", "analise_por_bairros")
 st.sidebar.markdown("### 💡 Solução do desafio")
 create_button("💾 Consultas em SQL", "queries_sql")
 create_button("🐍 Consultas em Python", "queries_python")
