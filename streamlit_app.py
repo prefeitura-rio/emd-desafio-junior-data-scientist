@@ -4,14 +4,14 @@ import pandas as pd
 import pandas_gbq  # noqa: F401
 import streamlit as st
 
-from src.dashboards.analise_por_bairros import dashboard as analise_por_bairros
-from src.dashboards.chamados_em_um_dia import dashboard as chamados_em_um_dia
-from src.dashboards.chamados_por_subtipo import (
-    dashboard as chamados_por_subtipo,
+from src.dashboards.analise_bairros import dashboard as analise_bairros
+from src.dashboards.analise_diaria import dashboard as analise_diaria
+from src.dashboards.analise_subtipo import (
+    dashboard as analise_subtipo,
 )
+from src.mypages.analise_python import page as analise_python
+from src.mypages.analise_sql import page as analise_sql
 from src.mypages.homepage import page as homepage
-from src.mypages.queries_python_page import page as queries_python_page
-from src.mypages.queries_sql_page import page as queries_sql_page
 
 
 @st.cache_data
@@ -112,13 +112,11 @@ def main():
     # Mapeamento de páginas disponíveis
     pages = {
         "home": homepage,
-        "dashboard_1": lambda: chamados_em_um_dia(calls, neighborhoods),
-        "dashboard_2": lambda: chamados_por_subtipo(calls, events),
-        "analise_por_bairros": lambda: analise_por_bairros(
-            calls, neighborhoods
-        ),
-        "queries_sql": queries_sql_page,
-        "queries_python": queries_python_page,
+        "dashboard_1": lambda: analise_diaria(calls, neighborhoods),
+        "dashboard_2": lambda: analise_subtipo(calls, events),
+        "analise_por_bairros": lambda: analise_bairros(calls, neighborhoods),
+        "queries_sql": analise_sql,
+        "queries_python": analise_python,
     }
 
     # Inicialização da página atual
