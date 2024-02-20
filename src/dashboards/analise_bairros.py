@@ -54,10 +54,10 @@ def metrics(calls):
                 "Total de Chamados", format_number(f"{calls.shape[0]:,d}")
             )
         with col2:
-            calls_on_time = calls["dentro_prazo"].value_counts(normalize=True)
+            calls_on_time = calls["dentro_prazo"].value_counts()
             calls_on_time = calls_on_time.get("No prazo", 0)
             st.metric(
-                "Chamados no prazo", format_number(f"{calls_on_time:.1%}")
+                "Chamados no prazo", format_number(f"{calls_on_time:,d}")
             )
         with col3:
             avg_days = (
@@ -163,7 +163,7 @@ def dashboard(calls, neighborhoods):
     st.write("\n\n")
 
     with st.container():
-        col1, col2, col3 = st.columns([0.2, 0.4, 0.4])
+        col1, col2, col3 = st.columns([0.2, 0.45, 0.35])
         with col1:
             fig = px.pie(
                 data["dentro_prazo"].value_counts().reset_index(),
@@ -222,3 +222,42 @@ def dashboard(calls, neighborhoods):
             fig.update_xaxes(title_text="")
             fig.update_yaxes(title_text="")
             st.plotly_chart(fig, use_container_width=True)
+
+    st.markdown("<hr>", unsafe_allow_html=True)
+    with st.container():
+        col1, col2 = st.columns([0.4, 0.6])
+        with col1:
+            st.plotly_chart(
+                plot_bar_chart(
+                    data["tipo"]
+                    .value_counts()
+                    .head(10)
+                    .reset_index()
+                    .sort_values("count"),
+                    "count",
+                    "tipo",
+                    title="Top 10 tipos de chamados",
+                    title_font_size=20,
+                    height=420,
+                ),
+                config={"displayModeBar": False},
+                use_container_width=True,
+            )
+
+        with col2:
+            st.plotly_chart(
+                plot_bar_chart(
+                    data["subtipo"]
+                    .value_counts()
+                    .head(10)
+                    .reset_index()
+                    .sort_values("count"),
+                    "count",
+                    "subtipo",
+                    title="Top 10 subtipos de chamados",
+                    title_font_size=20,
+                    height=420,
+                ),
+                config={"displayModeBar": False},
+                use_container_width=True,
+            )
