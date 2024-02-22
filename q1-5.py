@@ -1,7 +1,3 @@
-# 5. Existe algum chamado aberto nesse dia que não foi associado a um bairro ou subprefeitura na tabela de bairros? Se sim, por que isso acontece?
-
-
-
 import basedosdados as bd
 
 main_path = "datario.administracao_servicos_publicos.chamado_1746"
@@ -81,4 +77,28 @@ WHERE id_bairro IN (
 """
 
 df = bd.read_sql(query_subprefecture, billing_project_id= "dadosrio")
-print(f"O nome do bairro e da subprefeitura com maior ocorrência neste dia: {df}")
+# print(f"O nome do bairro e da subprefeitura com maior ocorrência neste dia: {df}")
+
+# Questão 5 - Existe algum chamado aberto nesse dia que não foi associado a um bairro ou subprefeitura na tabela de bairros? Se sim, por que isso acontece?
+
+null_query = f"""
+SELECT *
+FROM {main_path} AS c
+LEFT JOIN {neighborhood_path} AS b ON c.id_bairro = b.id_bairro
+WHERE DATE(c.data_inicio) = '2023-04-01' AND b.id_bairro IS NULL;
+"""
+
+df = bd.read_sql(null_query, billing_project_id= "dadosrio")
+# print(f"Ocorrência não associada à bairro ou subprefeitura: {df}")
+
+# Vários fatores podem justificar não ter prefeitura ou bairro associado, como falta de informações ao preencher ou ao não mapeamento, mas este em específico trata-se de um chamado do tipo "Ônibus" (como mostrado na query a seguir), uma verificação de ar condicionado, então, ao meu ver, não faz sentido ter um bairro associado, já que o ônibus pode percorrer vários bairros.
+
+type_query = f"""
+SELECT tipo, status
+FROM {main_path} AS c
+LEFT JOIN {neighborhood_path} AS b ON c.id_bairro = b.id_bairro
+WHERE DATE(c.data_inicio) = '2023-04-01' AND b.id_bairro IS NULL;
+"""
+
+df = bd.read_sql(type_query, billing_project_id= "dadosrio")
+print(f"Tipo de ocorrência não associada à bairro ou subprefeitura: {df}")
