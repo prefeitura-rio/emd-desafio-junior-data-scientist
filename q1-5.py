@@ -42,6 +42,25 @@ WHERE id_bairro IN (
 """
 df = bd.read_sql(location_query, billing_project_id= "dadosrio")
 
-print(f"\n\n O nome dos 3 bairros com maior número de ocorrências é: {df}\n\n")
+# print(f"\n\n O nome dos 3 bairros com maior número de ocorrências é: {df}\n\n")
 
+# Questão 4 - Qual o nome da subprefeitura com mais chamados abertos nesse dia?
 
+query_subprefecture = """
+SELECT nome, subprefeitura
+FROM `datario.dados_mestres.bairro`
+WHERE id_bairro IN (
+    SELECT id_bairro
+    FROM (
+        SELECT id_bairro, COUNT(*) AS recorrencia_bairro 
+        FROM `datario.administracao_servicos_publicos.chamado_1746`
+        WHERE DATE(data_inicio) = '2023-04-01'
+        GROUP BY id_bairro 
+        ORDER BY recorrencia_bairro DESC 
+        LIMIT 1
+    )
+);
+"""
+
+df = bd.read_sql(query_subprefecture, billing_project_id= "dadosrio")
+print(f"O nome do bairro e da subprefeitura com maior ocorrência neste dia: {df}")
