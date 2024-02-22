@@ -1,4 +1,3 @@
-# 4. Qual o nome da subprefeitura com mais chamados abertos nesse dia?
 # 5. Existe algum chamado aberto nesse dia que não foi associado a um bairro ou subprefeitura na tabela de bairros? Se sim, por que isso acontece?
 
 
@@ -6,6 +5,7 @@
 import basedosdados as bd
 
 main_path = "datario.administracao_servicos_publicos.chamado_1746"
+neighborhood_path = "datario.dados_mestres.bairro"
 
 # Questão 1 - Quantos chamados foram abertos no dia 01/04/2023? ✅
 quantity_query = f"SELECT COUNT(*) AS total_chamados_abertos FROM {main_path} WHERE DATE(data_inicio) = '2023-04-01';"
@@ -27,18 +27,21 @@ df = bd.read_sql(order_by_type_query, billing_project_id= "dadosrio")
 
 location_query = f"""
 SELECT nome 
-FROM `datario.dados_mestres.bairro` 
-WHERE id_bairro = (
+FROM {neighborhood_path} 
+WHERE id_bairro IN (
     SELECT id_bairro
     FROM (
         SELECT id_bairro, COUNT(*) AS recorrencia_bairro 
-        FROM `datario.administracao_servicos_publicos.chamado_1746` 
+        FROM {main_path} 
+        WHERE DATE(data_inicio) = '2023-04-01'
         GROUP BY id_bairro 
         ORDER BY recorrencia_bairro DESC 
-        LIMIT 1
+        LIMIT 3
     )
 );
 """
 df = bd.read_sql(location_query, billing_project_id= "dadosrio")
 
-print(f"\n\n O nome do bairro com maior número de ocorrências foi: {df}\n\n")
+print(f"\n\n O nome dos 3 bairros com maior número de ocorrências é: {df}\n\n")
+
+
