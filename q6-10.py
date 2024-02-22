@@ -1,7 +1,6 @@
 ## Chamados do 1746 em grandes eventos
 #### Utilize a tabela de Chamados do 1746 e a tabela de Ocupação Hoteleira em Grandes Eventos no Rio para as perguntas de 6-10. Para todas as perguntas considere o subtipo de chamado "Perturbação do sossego".
 
-# 8. Quantos chamados desse subtipo foram abertos em cada evento?
 # 9. Qual evento teve a maior média diária de chamados abertos desse subtipo?
 # 10. Compare as médias diárias de chamados abertos desse subtipo durante os eventos específicos (Reveillon, Carnaval e Rock in Rio) e a média diária de chamados abertos desse subtipo considerando todo o período de 01/01/2022 até 31/12/2023.
 
@@ -33,9 +32,9 @@ specific_ocurrences_by_event = f"""
 SELECT
   c.*
 FROM
-  `datario.administracao_servicos_publicos.chamado_1746` AS c
+  {main_path} AS c
 JOIN
-  `datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos` AS e
+  {hotels_path} AS e
 ON
   DATE(c.data_inicio) BETWEEN DATE(e.data_inicial)
   AND DATE(e.data_final)
@@ -47,6 +46,30 @@ WHERE
 """
 
 df = bd.read_sql(specific_ocurrences_by_event, billing_project_id= project_id)
-print(f"Seleção de chamados abertos com subtipo Perturbaç!ao do sossego durante os eventos especificados: {df}")
+# print(f"Seleção de chamados abertos com subtipo Perturbação do sossego durante os eventos especificados: {df}")
 
 
+# Questão 8 - Quantos chamados desse subtipo foram abertos em cada evento?
+
+quantity_ocurrences_by_event = f"""
+SELECT
+  e.evento,
+  COUNT(*) AS total_chamados
+FROM
+  {main_path} AS c
+JOIN
+  {hotels_path} AS e
+ON
+  DATE(c.data_inicio) BETWEEN DATE(e.data_inicial)
+  AND DATE(e.data_final)
+WHERE
+  c.subtipo = 'Perturbação do sossego'
+  AND e.evento IN ('Reveillon',
+    'Carnaval',
+    'Rock in Rio')
+GROUP BY
+  e.evento;
+"""
+
+df = bd.read_sql(quantity_ocurrences_by_event, billing_project_id= project_id)
+print(f"Quantidade de chamados abertos com subtipo Perturbação do sossego para cada evento específico: {df}")
