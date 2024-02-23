@@ -5,8 +5,11 @@ neighborhood_path = "datario.dados_mestres.bairro"
 events_path = "datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos"
 project_id = "dadosrio"
 
+def apply_query(query):
+  return bd.read_sql(query, billing_project_id= project_id)
 
-# Questão 1 - Quantos chamados foram abertos no dia 01/04/2023? ✅
+
+# QUESTÃO 1 - Quantos chamados foram abertos no dia 01/04/2023? ✅
 quantity_query = f"""
 SELECT
   COUNT(*) AS total_chamados_abertos
@@ -16,12 +19,12 @@ WHERE
   DATE(data_inicio) = '2023-04-01';
 """
 
-df = bd.read_sql(quantity_query, billing_project_id= project_id)
+df = apply_query(quantity_query)
 
 # print(f"\n\nO número total de chamados abertos em 2023-04-01 foi: {df}\n\n")
 
 
-# Questão 2 - Qual o tipo de chamado que teve mais teve chamados abertos no dia 01/04/2023? ✅
+# QUESTÃO 2 - Qual o tipo de chamado que teve mais teve chamados abertos no dia 01/04/2023? ✅
 
 order_by_type_query = f"""
 SELECT
@@ -37,10 +40,10 @@ LIMIT
   1;
 """
 
-df = bd.read_sql(order_by_type_query, billing_project_id= project_id)
-# print(f"\n\n O tipo de chamado com maior número de ocorrências foi: {df}\n\n")
+df = apply_query(order_by_type_query)
+print(f"\n\n O tipo de chamado com maior número de ocorrências foi: {df}\n\n")
 
-# Questão 3 - Quais os nomes dos 3 bairros que mais tiveram chamados abertos nesse dia? ✅
+# QUESTÃO 3 - Quais os nomes dos 3 bairros que mais tiveram chamados abertos nesse dia? ✅
 
 location_query = f"""
 SELECT nome 
