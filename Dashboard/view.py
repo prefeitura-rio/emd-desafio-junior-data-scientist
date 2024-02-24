@@ -1,20 +1,19 @@
-import basedosdados as bd
+import funcoes
 import streamlit as st
 import plotly.express as px
 import pandas as pd
+
 project_id = "dadosrio"
 main_path = "datario.administracao_servicos_publicos.chamado_1746"
 neighborhood_path = "datario.dados_mestres.bairro"
 events_path = "datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos"
 
-def apply_query(query):
-  return bd.read_sql(query, billing_project_id= project_id)
 
 st.title("Escritório de dados do Rio de Janeiro - Dashboard Datario")
 
 st.header("Parte 1 - Análise dos bairros do Rio de Janeiro")
 
-quantity_neighboors = apply_query(f"SELECT COUNT(*) FROM {neighborhood_path};")
+quantity_neighboors = funcoes.apply_query(f"SELECT COUNT(*) FROM {neighborhood_path};")
 st.write(f"☝️ Atualmente, a cidade do Rio de Janeiro possui {quantity_neighboors.values[0]} bairros, mais do que São Gonçalo [com 91 bairros oficiais], Itaguaí [41] e Saquarema [14] juntos - que são cidades vizinhas.")
 
 
@@ -23,7 +22,7 @@ st.write(f"Gráfico dos 5 maiores bairros do Rio. ")
 
 # GRÁFICO 1 - barras: 5 maiores bairros
 
-area_query = apply_query(f"SELECT nome, area FROM {neighborhood_path} ORDER BY area DESC LIMIT 5;")
+area_query = funcoes.apply_query(f"SELECT nome, area FROM {neighborhood_path} ORDER BY area DESC LIMIT 5;")
 df = pd.DataFrame(area_query, columns=["nome", "area"])
 st.bar_chart(df.set_index('nome'))
 
@@ -56,7 +55,7 @@ st.plotly_chart(fig)
 st.write("Cada bairro tem a sua subprefeitura, como acontece nas demais cidades do Brasil. No caso do Rio, algumas se repetem bastante, conforme mostrado no gráfico a seguir.")
 
 subpre_query = f"SELECT subprefeitura, COUNT(*) AS Recorrencia FROM {neighborhood_path} GROUP BY subprefeitura ORDER BY Recorrencia DESC LIMIT 5;"
-subpre_dados = apply_query(subpre_query)
+subpre_dados = funcoes.apply_query(subpre_query)
 subprefeituras = pd.DataFrame(subpre_dados, columns=["subprefeitura", "Recorrencia"])
 st.bar_chart(subprefeituras.set_index('subprefeitura'))
 # colocar gráfico do mapa aqui!
@@ -66,7 +65,7 @@ st.header("Parte 2 - Análise dos chamados efetuados no Rio de Janeiro")
 
 # GRÁFICO 4 - 1o tipo de chamado mais recorrente
 
-os_type = apply_query(f"SELECT tipo, COUNT(*) AS total_ocorrencias FROM {main_path} GROUP BY tipo ORDER BY total_ocorrencias DESC LIMIT 1;")
+os_type = funcoes.apply_query(f"SELECT tipo, COUNT(*) AS total_ocorrencias FROM {main_path} GROUP BY tipo ORDER BY total_ocorrencias DESC LIMIT 1;")
 os_most_recurrent_type = os_type.values[0][0]
 
 st.write(f"☝️ Abrindo a seção dos chamados, o tipo mais recorrente em termos de solicitação foi [{str(os_most_recurrent_type)}], com [{str(os_type.values[0][1])}] chamados!")
@@ -77,7 +76,7 @@ st.write(f"☝️ Abrindo a seção dos chamados, o tipo mais recorrente em term
 st.write("Nesse gráfico, está disposto um mapa com as localizações com uma amostra de 1000 chamados da tabela consultada. Será que podemos extrair algum padrão daqui? Percebe que eles tendem a aparecer mais em algumas localidades do gráfico?")
 # Consulta SQL para obter os 100 primeiros chamados com linhas válidas
 consulta_chamados = f"SELECT latitude, longitude FROM {main_path} WHERE latitude IS NOT NULL AND longitude IS NOT NULL LIMIT 1000;"
-dados_chamados = apply_query(consulta_chamados)
+dados_chamados = funcoes.apply_query(consulta_chamados)
 
 # Verificar se há dados válidos para plotar
 if isinstance(dados_chamados, pd.DataFrame) and not dados_chamados.empty:
@@ -106,10 +105,10 @@ WHERE DATE(data_inicio) = (
 );
 """
 
-quant_chamados_dia_mais_chamados = apply_query(dia_mais_chamados_query)
+quant_chamados_dia_mais_chamados = funcoes.apply_query(dia_mais_chamados_query)
 quant_chamados_dia_mais_chamados = quant_chamados_dia_mais_chamados.iloc[0]['total_chamados']
 
-quant_total_chamados = apply_query(f"SELECT COUNT(*) AS total_chamados FROM {main_path} ;")
+quant_total_chamados = funcoes.apply_query(f"SELECT COUNT(*) AS total_chamados FROM {main_path} ;")
 quant_total_chamados = quant_total_chamados.iloc[0]['total_chamados']
 
 # Calcular a porcentagem de chamados em relação ao dia com mais chamados
@@ -132,7 +131,7 @@ GROUP BY status
 """
 
 # Aplicar a consulta e verificar se o DataFrame é válido
-dados_chamados_por_status = apply_query(consulta_chamados_por_status)
+dados_chamados_por_status = funcoes.apply_query(consulta_chamados_por_status)
 if isinstance(dados_chamados_por_status, pd.DataFrame) and not dados_chamados_por_status.empty:
     
     # Define um layout personalizado com tonalidades de azul
@@ -156,7 +155,7 @@ WHERE tempo_prazo IS NOT NULL
 """
 
 # Aplicar a consulta e verificar se o resultado é válido
-resultado_tempo_medio_resolucao = apply_query(consulta_tempo_medio_resolucao)
+resultado_tempo_medio_resolucao = funcoes.apply_query(consulta_tempo_medio_resolucao)
 if isinstance(resultado_tempo_medio_resolucao, pd.DataFrame) and not resultado_tempo_medio_resolucao.empty:
     # Extrair o tempo médio de resolução dos chamados
     tempo_medio_resolucao = resultado_tempo_medio_resolucao.iloc[0]['tempo_medio_resolucao']
@@ -191,7 +190,7 @@ ORDER BY
 """
 
 # Executar a consulta
-resultados = apply_query(trimestres_query)
+resultados = funcoes.apply_query(trimestres_query)
 
 # Definir as cores personalizadas
 custom_colors = ['#1f77b4', '#aec7e8', '#7f7f7f', '#98df8a', '#2ca02c']
@@ -211,7 +210,7 @@ SELECT DISTINCT evento
 FROM {events_path};
 """
 
-eventos = apply_query(eventos_query)
+eventos = funcoes.apply_query(eventos_query)
 
 # Extrair todas as strings em uma única lista -- TRANSFORMAR EM
 todas_as_strings = eventos['evento'].tolist()
@@ -235,7 +234,7 @@ GROUP BY evento;
 
 # GRÁFICO 6 - média das taxas por evento
 
-dados_eventos = apply_query(media_taxa_query)
+dados_eventos = funcoes.apply_query(media_taxa_query)
 fig = px.bar(dados_eventos, x='evento', y='media_taxa_ocupacao', 
              title='Média da Taxa de Ocupação por Evento',
              labels={'media_taxa_ocupacao': 'Taxa de Ocupação Média (%)'})
@@ -257,7 +256,7 @@ GROUP BY eventos.evento;
 
 
 """
-dados_eventos_chamados_sql = apply_query(consulta_evento)
+dados_eventos_chamados_sql = funcoes.apply_query(consulta_evento)
 # Verificar se há dados válidos para plotar
 if isinstance(dados_eventos_chamados_sql, pd.DataFrame) and not dados_eventos_chamados_sql.empty:
     # Plotar o gráfico de barras
@@ -299,8 +298,8 @@ WHERE
 """
 
 # Executar as consultas
-quantity_result = apply_query(quantity_query)
-result = apply_query(order_by_type_query)
+quantity_result = funcoes.apply_query(quantity_query)
+result = funcoes.apply_query(order_by_type_query)
 
 # Consulta para obter o tipo de chamado com mais ocorrências na data especificada
 order_by_type_query = f"""
@@ -330,11 +329,8 @@ WHERE
 """
 
 # Executar as consultas
-quantity_result = apply_query(quantity_query)
-result = apply_query(order_by_type_query)
-import pandas as pd
-import plotly.express as px
-import streamlit as st
+quantity_result = funcoes.apply_query(quantity_query)
+result = funcoes.apply_query(order_by_type_query)
 
 # Consulta para obter o tipo de chamado com mais ocorrências na data especificada
 order_by_type_query = f"""
@@ -364,8 +360,8 @@ WHERE
 """
 
 # Executar as consultas
-quantity_result = apply_query(quantity_query)
-result = apply_query(order_by_type_query)
+quantity_result = funcoes.apply_query(quantity_query)
+result = funcoes.apply_query(order_by_type_query)
 
 # Verificar se as consultas retornaram resultados
 if isinstance(quantity_result, pd.DataFrame) and isinstance(result, pd.DataFrame) and not result.empty:
@@ -409,7 +405,7 @@ WHERE id_bairro IN (
 );
 """
 
-bairros = apply_query(location_query)
+bairros = funcoes.apply_query(location_query)
 # Extrair todas as strings em uma única lista
 todas_as_strings = bairros['nome'].tolist()
 
