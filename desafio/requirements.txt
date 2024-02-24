@@ -1,0 +1,7 @@
+basedosdados~=1.6.11
+geopandas~=0.14.3
+ipykernel~=6.29.2
+jupyter~=1.0.0
+pywaffle~=1.1.0
+seaborn~=0.13.2
+contextily~=1.5.0
