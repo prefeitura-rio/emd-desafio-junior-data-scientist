@@ -1,17 +1,20 @@
 import streamlit as st
 
 
-def display_card(card_value: str, card_description: str) -> None:
+def display_card(
+    card_value: str, card_description: str, tooltip: str = ""
+) -> None:
     """Exibe um card com um título e um valor.
 
     Args:
         card_value (str): Valor do card.
         card_description ([type]): Descrição do card.
+        tooltip (str): Texto de ajuda.
     """
     st.markdown(
         f"""
         <div class="card">
-            <h2 class="card_title">{card_value}</h2>
+            <h2 class="card_title" title="{tooltip}">{card_value}</h2>
             <p>{card_description}</p>
         </div>
         """,

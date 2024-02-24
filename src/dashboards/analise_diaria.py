@@ -52,20 +52,21 @@ def display_cards(
         selected_date (datetime.date): Data selecionada.
     """
     grid = make_grid(rows=1, cols=4)
-
+    most_common_type = filtered_data["tipo"].value_counts().idxmax()
     cards_data = [
-        ("Quantidade de chamados", filtered_data.shape[0]),
-        ("Tipo mais comum", filtered_data.tipo.value_counts().idxmax()),
+        ("Quantidade de chamados", filtered_data.shape[0], ""),
+        ("Tipo mais comum", most_common_type, most_common_type),
         (
             "Subprefeitura comum",
             calls_by_neighborhood.subprefeitura.value_counts().idxmax(),
+            "",
         ),
-        ("Data que foi selecionada", selected_date.strftime("%d/%m/%Y")),
+        ("Data que foi selecionada", selected_date.strftime("%d/%m/%Y"), ""),
     ]
 
-    for i, (description, value) in enumerate(cards_data):
+    for i, (description, value, tooltip) in enumerate(cards_data):
         with grid[0][i]:
-            display_card(value, description)
+            display_card(value, description, tooltip)
 
 
 def display_plots(

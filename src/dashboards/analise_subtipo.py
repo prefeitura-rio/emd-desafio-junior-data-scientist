@@ -93,8 +93,8 @@ def display_cards(
     """
     grid = make_grid(rows=1, cols=5)
     cards_data = [
-        ("Subtipo selecionado", subtype),
-        ("Chamados abertos desse subtipo", filtered_calls.shape[0]),
+        ("Subtipo selecionado", subtype, subtype),
+        ("Chamados abertos desse subtipo", filtered_calls.shape[0], ""),
         (
             "Evento com mais chamados",
             (
@@ -102,20 +102,23 @@ def display_cards(
                 if not calls_during_events.empty
                 else "Nenhum evento"
             ),
+            "",
         ),
         (
             "Média diária durante todo o período",
             f"{get_avg_calls(filtered_calls):.2f}",
+            "",
         ),
         (
             "Média diária durante eventos",
             f"{get_avg_calls(calls_during_events.dropna(subset=['durante_evento'])):.2f}",
+            "",
         ),
     ]
 
-    for i, (description, value) in enumerate(cards_data):
+    for i, (description, value, tooltip) in enumerate(cards_data):
         with grid[0][i]:
-            display_card(value, description)
+            display_card(value, description, tooltip=tooltip)
 
 
 def dashboard(calls: pd.DataFrame, events: pd.DataFrame) -> None:
