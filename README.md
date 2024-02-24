@@ -38,6 +38,7 @@
     - [📦 Poetry](#package-poetry)
     - [🐍 Pip](#snake-pip)
 - [💾 Dados](#floppy_disk-dados)
+- [👀 Solução do Desafio](#eyes-solução-do-desafio)
 
 ## :page_with_curl: Sobre o Projeto
 
@@ -144,3 +145,7 @@ Abaixo, temos um diagrama das tabelas utilizadas no projeto:
 <div align="center">
     <img src="dicionario-dados/tabelas-desafio.svg" height="600" alt="Tabelas do Desafio">
 </div>
+
+## 	:eyes: Solução do Desafio
+
+A solução das questões propostas no desafio está disponível no diretório `desafio`. Para acessar a solução, [clique aqui](desafio/README.md). Também foram desenvolvidos notebooks contendo a análise exploratória dos dados e previsão de chamados por status e no prazo. Para acessar os notebooks, [clique aqui](notebooks/README.md).
