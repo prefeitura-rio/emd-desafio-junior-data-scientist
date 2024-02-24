@@ -27,4 +27,4 @@ A análise exploratória dos dados foi feita no notebook [Análise exploratória
 
 ## Previsão
 
-A previsão dos chamados foi feita no notebook de [análise chamados encerrados](analise_chamados_encerrados.ipynb). No [markdown](analise_chamados_encerrados.md), é possível ver a análise feita.
+A previsão dos chamados foi feita no notebook de [análise chamados encerrados.ipynb](analise_chamados_encerrados.md).
