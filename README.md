@@ -104,7 +104,11 @@ Se você preferir utilizar Docker, siga os passos abaixo:
     ```bash
     docker run -p 8501:8501 dashboard-1746
     ```
-4. Acesse a aplicação em seu navegador através do seguinte endereço:
+4. Ou, se preferir, execute o seguinte comando para iniciar o contêiner com o Docker Compose:
+    ```bash
+    docker compose up
+    ```
+5. Acesse a aplicação em seu navegador através do seguinte endereço:
 http://localhost:8501.
 
 ### :package: Poetry
