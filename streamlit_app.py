@@ -146,6 +146,17 @@ def main():
     create_button(
         "🐍 Consultas em Python", "queries_python", current_page, change_page
     )
+    st.sidebar.markdown("### 📫 Contato")
+    st.sidebar.markdown(
+        """
+        [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5?logo=linkedin&color=%230077B5)](https://www.linkedin.com/in/acissej/)
+        [![Github](https://img.shields.io/badge/Github-black?logo=github)](https://github.com/jessicacardoso)
+        [![DEV.to](https://img.shields.io/badge/DEV.to-black?logo=dev.to)](https://dev.to/jessicacardoso)
+        [![Discord](https://img.shields.io/badge/Discord-%237289da?logo=discord&logoColor=white&labelColor=%237289da)](https://discord.com/users/601214907400060937)
+        [![Telegram](https://img.shields.io/badge/Telegram-%232CA5E0?logo=telegram&logoColor=white&labelColor=%232CA5E0)](https://t.me/pal_oma)
+        [![Gmail](https://img.shields.io/badge/Gmail-%23D14836?logo=gmail&logoColor=white&labelColor=%23D14836)](mailto:jcardoso@inf.puc-rio.br)
+        """
+    )
 
     # Renderização da página atual
     pages[current_page]()
