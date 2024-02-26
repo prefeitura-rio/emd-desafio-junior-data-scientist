@@ -29,7 +29,7 @@ Tutorial para acessar dados no BigQuery, desde a criação da conta no GCP até 
 2. Para realizar as análises via python através do arquivo `analise_python.ipynb` deve ser o utilizado o mesmo tutorial acima.
 **Tive problemas ao instalar a biblioteca `basedosdados` pelo VSCode e etc, portanto utilizei o Google Colab para essa operação e por esse motivo o pip install é preciso ser executado da forma como descrito no arquivo. 
 
-3. Para visualização do dashboard no Looker Studio é preciso autorização do proprietário devido o acesso aos dados no BigQuery e pode ser solicitada através do email: pedrohcnuness@gmail.com. De toda forma disponiobilizo um pdf com a imagem do mesmo.
+3. Para visualização do dashboard no Looker Studio - [Dashboard](https://lookerstudio.google.com/s/k-0scX4pfIU), é preciso autorização do proprietário devido o acesso aos dados no BigQuery e pode ser solicitada através do email: pedrohcnuness@gmail.com. De toda forma disponiobilizo também um pdf com a imagem do mesmo.
 
 **O acesso já foi disponibilizado para o e-mail escritoriodedados@gmail.com.**
 
