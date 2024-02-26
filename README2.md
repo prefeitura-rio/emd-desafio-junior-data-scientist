@@ -30,7 +30,10 @@ Tutorial para acessar dados no BigQuery, desde a criação da conta no GCP até 
 **Tive problemas ao instalar a biblioteca `basedosdados` pelo VSCode e etc, portanto utilizei o Google Colab para essa operação e por esse motivo o pip install é preciso ser executado da forma como descrito no arquivo. 
 
 3. Para visualização do dashboard no Looker Studio é preciso autorização do proprietário devido o acesso aos dados no BigQuery e pode ser solicitada através do email: pedrohcnuness@gmail.com. De toda forma disponiobilizo um pdf com a imagem do mesmo.
+
 **O acesso já foi disponibilizado para o e-mail escritoriodedados@gmail.com.**
 
 ## Observação
-Durante o desenvolvimento deste desafio passei por alguns problemas técnicos como não conseguir instalar a biblioteca necessária e etc, mas encontrei outras formas de resolver mesmo sem ainda entender bem como, rs. Foi necessário aprender do zero sobre BigQuery, melhorar habilidades em SQL, aprender a realizar um fork no GitHub e aprofundar os conhecimentos no Looker Studio. Este processo proporcionou uma valiosa oportunidade de aprendizado e crescimento pessoal.
+Durante o desenvolvimento deste desafio, enfrentei alguns problemas técnicos, como a dificuldade em instalar a biblioteca necessária. No entanto, encontrei soluções alternativas, mesmo sem entender completamente o funcionamento, o que me permitiu superar os obstáculos. Foi necessário começar do zero no aprendizado sobre BigQuery, aprimorar minhas habilidades em SQL, aprender a realizar um fork no GitHub e aprofundar meus conhecimentos no Looker Studio.
+
+Esse processo proporcionou uma valiosa oportunidade de aprendizado e crescimento pessoal. Ao enfrentar esses desafios, pude adquirir novas habilidades e conhecimentos, destacando a minha capacidade de resolução de problemas e adaptação a situações adversas.
