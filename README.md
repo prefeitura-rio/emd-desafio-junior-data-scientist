@@ -40,7 +40,7 @@ As perguntas do desafio estão detalhadas no arquivo `perguntas_desafio.md`.
 6. Utilize o LookerStudio, Power BI, StreamLit, Tableau ou qualquer outra ferramenta de visualização de sua preferência para criar visualizações informativas dos dados das 3 tabelas. Suas visualizações não precisam se limitar apenas aos resultados das análises; é encorajado que você explore os dados e crie visualizações interessantes sobre eles.
 7. Faça commits incrementais à medida que trabalha no desafio e, finalmente, faça push do seu código para o seu repositório no GitHub. Seu repositório deve conter um README com todos os passos necessários para rodar seu código e ver a visualização de dados que você criou.
 
-### Avaliação
+## Avaliação
 
 Você será avaliado em cada um dos tópicos abaixo, com seus respectivos pesos:
 
@@ -50,7 +50,7 @@ Você será avaliado em cada um dos tópicos abaixo, com seus respectivos pesos:
 
 Uma média ponderada será calculada e os melhores candidatos serão chamados para a etapa de entrevistas.
 
-### Dúvidas
+## Dúvidas
 
 Se tiver alguma dúvida ou precisar de esclarecimentos adicionais sobre o desafio, entre em contato pelo email escritoriodedados@gmail.com.
 
