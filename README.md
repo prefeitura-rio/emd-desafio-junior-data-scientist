@@ -42,7 +42,7 @@ As perguntas do desafio estão detalhadas no arquivo `perguntas_desafio.md`.
 
 ## Avaliação
 
-Você será avaliado em cada um dos tópicos abaixo, com seus respectivos pesos:
+Você será avaliado em cada uma das categorias abaixo abaixo, com seus respectivos pesos:
 
 - **SQL**: peso 1
 - **Python**: peso 2
