@@ -2,11 +2,12 @@
 
 ## Descrição
 
-Bem-vindo ao desafio técnico para a vaga de Cientista de Dados Júnior no Escritório Municipal de Dados do Rio de Janeiro! Este desafio tem o objetivo de avaliar suas habilidades técnicas em manipulação de dados, integraç consulta SQL, análise de dados e visualização de dados utilizando ferramentas como BigQuery e Python. A **data limite** do seu último commit no repositório é de **01/09/2024 às 23:59 UTC-3**.
+Bem-vindo ao desafio técnico para a vaga de Cientista de Dados Júnior no campo de soluções de tecnologia e de Governo Digital para área pública no Rio de Janeiro! A **data limite** do seu último commit no repositório é de **01/09/2024 às 23:59 UTC-3**.
 
 ### Objetivo
 
-O objetivo deste desafio é realizar análises exploratórias em conjuntos de dados públicos disponíveis no BigQuery, responder a perguntas específicas sobre esses dados utilizando SQL e Python, e criar visualizações informativas e visualmente atraentes.
+O objetivo deste desafio é avaliar suas habilidades técnicas em manipulação de dados, análises exploratórias, integração com APIs, consulta SQL no Big Query, análise e visualização de dados.
+
 
 #### Observação
 
@@ -26,18 +27,20 @@ Você precisará de acesso ao Google Cloud Platform (GCP) para utilizar o BigQue
 
 - Tutorial para acessar dados no BigQuery, desde a criação da conta no GCP até consultar os dados utilizando SQL e Python: [Como acessar dados no BigQuery](https://docs.dados.rio/tutoriais/como-acessar-dados/)
 
+Todas as APIs utilizadas no desafio são públicas e possuem documentações com exemplos.
+
 ### Perguntas do Desafio
 
-As perguntas do desafio estão detalhadas no arquivo `perguntas_desafio.md`.
+As perguntas do desafio estão detalhadas nos arquivos `perguntas_sql.md` e `perguntas_api.md`.
 
 ## Etapas
 
 1. Siga o tutorial acima para criar sua conta no GCP e aprender como utilizar o BigQuery para consultar os dados.
 2. Faça um fork desse repositório.
-3. Utilize SQL para resolver todas as questões contidas no arquivo `perguntas_desafio.md` no BigQuery. Salve suas respostas em um arquivo `analise_sql.sql`.
-4. Utilize Python e pandas para resolver todas as questões contidas no arquivo `perguntas_desafio.md`. Salve suas respostas em um arquivo `analise_python.py` ou `analise_python.ipynb`. Para acessar os dados do BigQuery no python, siga o tutorial acima e utilize a biblioteca `basedosdados`.
+3. Utilize SQL para resolver todas as questões contidas no arquivo `perguntas_sql.md` no BigQuery. Salve suas respostas em um arquivo `analise_sql.sql`.
+4. Utilize Python e pandas para resolver todas as questões contidas no arquivo `perguntas_sql.md`. Salve suas respostas em um arquivo `analise_python.py` ou `analise_python.ipynb`. Para acessar os dados do BigQuery no python, siga o tutorial acima e utilize a biblioteca `basedosdados`.
 5. Utilize Python para resolver todas as questões contidas no arquivo `perguntas_api.md`. Salve suas respostas em um arquivo `analise_api.py` ou `analise_api.ipynb`.
-6. Utilize o LookerStudio, Power BI, StreamLit, Tableau ou qualquer outra ferramenta de visualização de sua preferência para criar visualizações informativas dos dados das 3 tabelas. Suas visualizações não precisam se limitar apenas aos resultados das análises; é encorajado que você explore os dados e crie visualizações interessantes sobre eles.
+6. Utilize o LookerStudio, Power BI, StreamLit, Tableau ou qualquer outra ferramenta de visualização de sua preferência para criar visualizações informativas dos dados das tabelas e APIs. Suas visualizações não precisam se limitar apenas aos resultados das análises; é encorajado que você explore os dados e crie visualizações interessantes sobre eles.
 7. Faça commits incrementais à medida que trabalha no desafio e, finalmente, faça push do seu código para o seu repositório no GitHub. Seu repositório deve conter um README com todos os passos necessários para rodar seu código e ver a visualização de dados que você criou.
 
 ## Avaliação
@@ -48,7 +51,8 @@ Você será avaliado em cada uma das categorias abaixo abaixo, com seus respecti
 - **Python**: peso 2
 - **Visualização de Dados**: peso 1
 
-Uma média ponderada será calculada e os melhores candidatos serão chamados para a etapa de entrevistas.
+Uma média ponderada será calculada e os melhores candidatos serão chamados para a etapa de entrevistas. 
+Dica: procure fazer algo diferente! Devido à grande quantia de candidatos, é possível que uma boa média não seja suficiente para te garantir uma entrevista. Tente se destacar!
 
 ## Dúvidas
 
