@@ -14,6 +14,7 @@
    - Um feriado bem aproveitado no Rio de Janeiro é aquele em que se pode ir à praia;
    - O cidadão carioca só vai à praia quando não está com frio;
    - O cidadão carioca também só vai à praia em dias de sol, evitando dias  **totalmente** nublados ou chuvosos (considere _weather_code_ para determinar as condições climáticas).
+
 Houve algum feriado "não aproveitável" em 2024? Se sim, qual(is)?
 
 8. Qual foi feriado "mais aproveitável" de 2024 (melhor tempo e temperatura).
