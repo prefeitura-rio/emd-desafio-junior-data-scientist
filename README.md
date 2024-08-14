@@ -10,7 +10,7 @@ O objetivo deste desafio é realizar análises exploratórias em conjuntos de da
 
 #### Observação
 
-É esperado que você possa não ter tido contato prévio com algumas das tecnologias solicitadas no desafio, e isso é intencional. Parte da avaliação consiste em verificar se você é capaz de aprender rapidamente e produzir resultados após estudar as tecnologias por algum tempo. Por essa razão, o desafio tem uma duração de 15 dias, permitindo que você tenha tempo para estudar e aprender antes de enviar suas respostas.
+É esperado que você possa não ter tido contato prévio com algumas das tecnologias solicitadas no desafio, e isso é intencional. Parte da avaliação consiste em verificar se você é capaz de aprender rapidamente e produzir resultados após estudar as tecnologias por algum tempo. Por essa razão, o desafio tem uma duração de 13 dias, permitindo que você tenha tempo para estudar e aprender antes de enviar suas respostas.
 
 ### Conjunto de Dados
 
