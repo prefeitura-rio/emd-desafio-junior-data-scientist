@@ -53,7 +53,7 @@ Você será avaliado em cada uma das categorias abaixo abaixo, com seus respecti
 
 Uma média ponderada será calculada e os melhores candidatos serão chamados para a etapa de entrevistas. 
 
-Dica: procure fazer algo diferente! Devido à grande quantia de candidatos, é possível que uma boa média não seja suficiente para te garantir uma entrevista. Tente se destacar!
+**Dica**: procure fazer algo diferente! Devido à grande quantia de candidatos, é possível que uma boa média não seja suficiente para te garantir uma entrevista. Tente se destacar!
 
 ## Dúvidas
 
