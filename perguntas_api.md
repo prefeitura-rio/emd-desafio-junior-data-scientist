@@ -11,7 +11,7 @@
 3. **Quantos feriados em 2024 caem em dias úteis (segunda a sexta-feira)?**
 
 4. **Qual foi a temperatura média em cada mês?**
-Utilize a Open-Meteo Historical Weather API para obter as temperaturas médias diárias no Rio de Janeiro de 01/01/2024 a 01/08/2024.  
+   Utilize a Open-Meteo Historical Weather API para obter as temperaturas médias diárias no Rio de Janeiro de 01/01/2024 a 01/08/2024.  
    
 5. **Qual foi o tempo predominante em cada mês nesse período?**  
    Utilize como referência para o código de tempo (_weather_code_) o seguinte link: [WMO Code](https://gist.github.com/stellasphere/9490c195ed2b53c707087c8c2db4ec0c).
