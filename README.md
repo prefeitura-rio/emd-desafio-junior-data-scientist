@@ -45,7 +45,7 @@ As perguntas do desafio estão detalhadas nos arquivos `perguntas_sql.md` e `per
 
 ## Avaliação
 
-Você será avaliado em cada uma das categorias abaixo abaixo, com seus respectivos pesos:
+Você será avaliado em cada uma das categorias abaixo, com seus respectivos pesos:
 
 - **SQL**: peso 1
 - **Python**: peso 2
