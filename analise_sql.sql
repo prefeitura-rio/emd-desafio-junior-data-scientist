@@ -58,6 +58,7 @@ WHERE DATE(data_inicio) BETWEEN '2022-01-01' AND '2023-12-31' #Comando BETWEEN p
 
 #Pergunta 07
 SELECT 
+  DISTINCT tb_chamado.id_chamado, #Apenas id's distintos
   tb_eventos.evento,
   tb_chamado.* #Selecionando todas as colunas da tabela de chamados e o nome do evento
 FROM datario.adm_central_atendimento_1746.chamado tb_chamado
@@ -69,52 +70,84 @@ WHERE DATE(data_inicio) BETWEEN '2022-01-01' AND '2023-12-31' #Análogo ao probl
 #Pergunta 08
 SELECT 
   tb_eventos.evento,
-  COUNT(id_chamado) AS qtd_chamados_perturbacao_sossego 
+  COUNT(DISTINCT id_chamado) AS qtd_chamados_perturbacao_sossego #Contando os ids distintos
 FROM datario.adm_central_atendimento_1746.chamado tb_chamado
 JOIN datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos tb_eventos 
   ON DATE(data_inicio) BETWEEN tb_eventos.data_inicial AND tb_eventos.data_final
 WHERE DATE(data_inicio) BETWEEN '2022-01-01' AND '2023-12-31' 
   AND subtipo = 'Perturbação do sossego' #Até aqui tudo similar ao problema anterior
 GROUP BY evento #Adicionar o GROUP BY na consulta anterior já resolve o nosso problema
-ORDER BY qtd_chamados_perturbacao_sossego DESC; #Rock in Rio o inimigo da paz (?)
+ORDER BY qtd_chamados_perturbacao_sossego DESC
+LIMIT 1; #Rock in Rio o inimigo da paz (?)
 
 #Pergunta 09
+WITH EventosContados AS ( #Realizei duas subconsultas para facilitar
+  SELECT #A primeira retorna os chamados e dias de evento ocorrido para cada evento em cada intervalo de datas
+    evento,
+    data_final,
+    data_inicial,
+    COUNT(DISTINCT tb_chamado.id_chamado) AS total_chamados,
+    DATE_DIFF(data_final, data_inicial, DAY) + 1 AS dias_evento #somano 1 para indluir o dia
+  FROM datario.adm_central_atendimento_1746.chamado tb_chamado
+    JOIN datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos tb_eventos 
+        ON DATE(tb_chamado.data_inicio) BETWEEN tb_eventos.data_inicial AND tb_eventos.data_final #Mesclando pela data dos eventos
+    WHERE DATE(tb_chamado.data_inicio) BETWEEN '2022-01-01' AND '2023-12-31' #Apenas esse intervalo de data
+      AND tb_chamado.subtipo = 'Perturbação do sossego' #Filtrando o chamado
+  GROUP BY evento, data_final, data_inicial #Agrupando
+),
+DiasEvento AS (
+  SELECT #A segunda consulta foi para calcular o total de dias corridos e chamados em cada evento
+    ec.evento,
+    SUM(ec.dias_evento) AS tot_dias_evento,
+    SUM(ec.total_chamados) AS tot_chamados_evento
+  FROM EventosContados ec
+  GROUP BY ec.evento
+)
 SELECT 
-    tb_eventos.evento, #Selecionando os eventos a serem listados
-    COUNT(tb_chamado.id_chamado)/DATE_DIFF(tb_eventos.data_final, tb_eventos.data_inicial, DAY) AS chamados_perturbacao_diarios #Utilizando a função DATE_DIFF para calcular o número de dias em cada evento. Como o RiR acontece em dois finais de semana diferentes, a média dele é exibida para cada dia de evento
-FROM datario.adm_central_atendimento_1746.chamado tb_chamado
-JOIN datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos tb_eventos 
-    ON DATE(tb_chamado.data_inicio) BETWEEN tb_eventos.data_inicial AND tb_eventos.data_final #Unindo pela data novamene
-WHERE DATE(tb_chamado.data_inicio) BETWEEN '2022-01-01' AND '2023-12-31'
-  AND tb_chamado.subtipo = 'Perturbação do sossego'
-GROUP BY tb_eventos.evento, tb_eventos.data_inicial, tb_eventos.data_final #Realizando o agrupamento pelas datas também por conta da fórmula criada para calcular a média de dias
-ORDER BY chamados_perturbacao_diarios DESC;
+    DISTINCT de.evento, #Selecionando colunas únicas, pois eventos com mais de uma data aparecerão repetidos (Rock in Rio)
+    de.tot_chamados_evento/de.tot_dias_evento AS chamados_perturbacao_diarios, #Calculando a média por evento
+FROM DiasEvento de
+ORDER BY chamados_perturbacao_diarios DESC
+LIMIT 1; #Ordenando para ver o com maior número de chamados
+#Rock in Rio campeão
 
 #Pergunta 10
-WITH eventos_contados AS ( #Realizando uma subconsulta para calcular os chamados por evento
-    SELECT #Basicamente a consulta anterior
-        tb_eventos.evento,
-        COUNT(tb_chamado.id_chamado) AS total_chamados,
-        DATE_DIFF(tb_eventos.data_final, tb_eventos.data_inicial, DAY) AS dias_evento
-    FROM datario.adm_central_atendimento_1746.chamado tb_chamado
+WITH EventosContados AS ( #Realizando uma subconsulta para calcular os chamados por evento
+  SELECT #Basicamente a consulta anterior
+    evento,
+    data_final,
+    data_inicial,
+    COUNT(DISTINCT tb_chamado.id_chamado) AS total_chamados,
+    DATE_DIFF(data_final, data_inicial, DAY) + 1 AS dias_evento
+  FROM datario.adm_central_atendimento_1746.chamado tb_chamado
     JOIN datario.turismo_fluxo_visitantes.rede_hoteleira_ocupacao_eventos tb_eventos 
         ON DATE(tb_chamado.data_inicio) BETWEEN tb_eventos.data_inicial AND tb_eventos.data_final
     WHERE DATE(tb_chamado.data_inicio) BETWEEN '2022-01-01' AND '2023-12-31'
       AND tb_chamado.subtipo = 'Perturbação do sossego'
-    GROUP BY tb_eventos.evento, tb_eventos.data_inicial, tb_eventos.data_final
+  GROUP BY evento, data_final, data_inicial
 ),
-total_chamados AS ( #Subconsulta para contabilizar o total de chamados no intervalo de datas
+DiasEvento AS (
+  SELECT #A segunda consulta foi para calcular o total de dias corridos em cada evento
+    ec.evento,
+    SUM(ec.dias_evento) AS tot_dias_evento,
+    SUM(ec.total_chamados) AS tot_chamados_evento
+  FROM EventosContados ec
+  GROUP BY ec.evento
+),
+TotalChamados AS ( #Subconsulta para contabilizar o total de chamados no intervalo de datas
     SELECT 
         COUNT(tb_chamado.id_chamado) AS total_chamados_geral,
-        DATE_DIFF(MAX(tb_chamado.data_inicio), MIN(tb_chamado.data_inicio), DAY) AS total_dias_geral #Utilizando o MIN e MAX como 'gambiarra' na consulta para não chamar outras colunas da tab_chamado dps
+        DATE_DIFF(MAX(tb_chamado.data_inicio),MIN(tb_chamado.data_inicio), DAY) + 1 AS total_dias_geral #Somando 1 pra incruir extremidades
     FROM datario.adm_central_atendimento_1746.chamado tb_chamado
     WHERE DATE(tb_chamado.data_inicio) BETWEEN '2022-01-01' AND '2023-12-31'
       AND tb_chamado.subtipo = 'Perturbação do sossego'
 )
 SELECT 
-    ec.evento,
-    ec.total_chamados/ec.dias_evento AS chamados_perturbacao_diarios, #Calculando a média por evento
+    DISTINCT de.evento, #Selecionando colunas únicas, pois eventos com mais de uma data aparecerão repetidos
+    de.tot_chamados_evento/de.tot_dias_evento AS chamados_perturbacao_diarios, #Calculando a média por evento
     tc.total_chamados_geral/tc.total_dias_geral AS media_total_chamados_por_dia #Calculando a média por dia geral
-FROM eventos_contados ec
-CROSS JOIN total_chamados tc #Mesclando as duas tabelas sem relação alguma para ver o resultado em uma única consulta
+FROM EventosContados ec
+CROSS JOIN TotalChamados tc #Mesclando as duas tabelas sem relação alguma para ver o resultado em uma única consulta
+JOIN DiasEvento de
+  ON ec.evento = de.evento
 ORDER BY chamados_perturbacao_diarios DESC; #Ordenando pra ficar bonitinho e mais visual o top eventos com mais reclamações
