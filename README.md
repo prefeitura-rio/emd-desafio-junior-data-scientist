@@ -13,4 +13,4 @@ Para a vizualização dos dados eu escolhi o Power BI, salvo nesse repositório 
 Todas as fontes de dados que este projeto utiliza estão disponivéis no Google Cloud ou em API. É necessário realizar o credenciamento para se conectar e atualizar as fontes de dados, para isso é necessário o nome e id do projeto no Google Cloud.
 O projeto deve estar igual ao da foto abaixo:
 
-![Alt text](caminho-da-imagem-ou-URL)
+![Alt text](https://github.com/migconforto/emd-desafio-junior-data-scientist/blob/main/dash_pbix.png)
