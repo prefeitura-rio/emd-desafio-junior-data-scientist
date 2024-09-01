@@ -58,7 +58,7 @@ WHERE DATE(data_inicio) BETWEEN '2022-01-01' AND '2023-12-31' #Comando BETWEEN p
 
 #Pergunta 07
 SELECT 
-  DISTINCT tb_chamado.id_chamado, #Apenas id's distintos
+  DISTINCT tb_chamado.id_chamado, #Apenas ids distintos
   tb_eventos.evento,
   tb_chamado.* #Selecionando todas as colunas da tabela de chamados e o nome do evento
 FROM datario.adm_central_atendimento_1746.chamado tb_chamado
