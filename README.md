@@ -2,7 +2,7 @@
 
 ## Descrição
 
-Bem-vindo ao desafio técnico para a vaga de Cientista de Dados Júnior no campo de soluções de tecnologia e de Governo Digital para área pública no Rio de Janeiro! A **data limite** do seu último commit no repositório é de **01/09/2024 às 23:59 UTC-3**.
+Bem-vindo ao desafio técnico para a vaga de Cientista de Dados Júnior no campo de soluções de tecnologia e de Governo Digital para área pública no Rio de Janeiro!
 
 ### Objetivo
 
@@ -63,6 +63,5 @@ Boa sorte e estamos ansiosos para ver suas soluções!
 
 ---
 
-**Escritório de Dados**  
 **Prefeitura da Cidade do Rio de Janeiro**
 
